@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Album App V2 </title>
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+<body>
+<div class="container">
+	<div class="gallery theme-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container">
+			<img src="assets/img/photo1.JPG">
+			<img src="assets/img/photo2.JPG">
+			<img src="assets/img/photo3.JPG">
+		</div>
+	</div>
+	<div class="gallery photo-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container" id="photo-gallery-container">
+			<img src="assets/img/photo1.JPG">
+			<img src="assets/img/photo2.JPG">
+			<img src="assets/img/photo3.JPG">
+			<img src="assets/img/photo4.JPG">
+			<img src="assets/img/photo3.JPG">
+			<img src="assets/img/photo4.JPG">
+		</div>
+		<div class="gallery-btn-container">
+			<div class="main-btn center">
+				<input class="gallery-add gallery-add-photo" type="file" name="myFile" accept="image/*">	
+				Adauga Poze
+			</div>
+		</div>
+	</div>
+
+	<div class="gallery bg-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container">
+			<img src="assets/img/photo1.JPG">
+		</div>
+		<div class="gallery-btn-container">
+			<div class="main-btn center">
+				<input class="gallery-add gallery-add-bg" type="file" name="myFile" accept="image/*">	
+				Adauga Fundal
+			</div>
+		</div>
+	</div>
+
+	<div class="gallery elements-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container">
+			<img src="assets/img/photo3.JPG">
+		</div>
+		<div class="gallery-btn-container">
+			<div class="main-btn center">
+				<input class="gallery-add gallery-add-elements" type="file" name="myFile" accept="image/*">	
+				Adauga Element
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="lay-menu">
+		<img src="/assets/img/logo.png" class="logo">
+		<div class="main-btn center theme-gallery-btn">
+			Alege o tema
+		</div>
+		<div class="main-btn center photo-gallery-btn">
+			Galerie poze
+		</div>
+		<div class="main-btn center bg-gallery-btn">
+			Galerie fundaluri
+		</div>
+		<div class="main-btn center elements-gallery-btn">
+			Elemente grafice
+		</div>
+		<div class="main-btn center" onclick="">
+			Import din Excel
+		</div>
+
+		<div class="page-menu-container">
+			Page 1
+		</div>
+	</div> <!-- Menu -->
+
+
+
+
+
+	<div class="lay-main">
+		<header>
+			<div class="lay-header">
+				<div class="header-el">
+					<p> Dimensiune </p>
+					<p class="header-selected"> 297 x 210 mm </p>
+				</div>
+				<div class="header-el">
+					<p> Landscape </p>
+					<p class="header-selected"> 297 x 210 mm </p>
+				</div>
+				<div class="header-el">
+					<p> Numar pagini </p>
+					<p class="header-selected pagesCounter"> 2 </p>
+				</div>
+				<div class="header-el">
+					<p> Pret </p>
+					<p class="header-selected"> 150 lei </p>
+				</div>
+				<div class="header-el">
+					<p> Termen livrare </p>
+					<p class="header-selected"> 4 zile </p>
+				</div>
+
+			</div>
+			<div class="lay-header__btn-container">
+				<div class="lay-header-btn main-btn center">
+					Vizualizare
+				</div>
+				<div class="lay-header-btn main-btn center">
+					Comanda
+				</div>
+			</div>
+		</header>
+
+
+
+
+		<div class="lay-album-container">
+			<div class="page-container page-left">
+
+
+				<!--
+				<div class="album-page resize-container">
+					<p> Click aici pentru a adauga poza ta </p>
+					<input type="file" accept="image/*" onchange="changePageBg(this)">	
+					<img src="/assets/img/background.png">
+
+
+					<div class="image resize-drag image-pos1 center">
+						<div class="image-delete" onclick="deleteParent(this)"> </div>	
+						<p> Click aici pentru a adauga poza ta </p>
+						<input onchange="changeImage(this)" type="file" accept="image/*">
+						<img src="#">
+					</div>
+
+
+					<div class="image resize-drag image-pos2 center">
+						<div class="image-delete" onclick="deleteParent(this)"> </div>		
+						<p> Click aici pentru a adauga poza ta </p>
+						<input onchange="changeImage(this)" type="file" accept="image/*">
+						<img src="#">
+					</div>
+				</div>
+			-->
+				<div class="pg-nr-left">0</div>
+			</div>
+
+			
+			<div class="page-container page-right">
+		<!--		<div class="album-page resize-container">
+					<p> Click aici pentru a adauga poza ta </p>
+					<input type="file" accept="image/*"  onchange="changePageBg(this)">	
+					<img src="/assets/img/background.png">
+
+
+					<div class="image resize-drag image-pos1 center">	
+						<div class="image-delete" onclick="deleteParent(this)"> </div>	
+						<p> Click aici pentru a adauga poza ta </p>
+						<input onchange="changeImage(this)" type="file" accept="image/*">
+						<img src="#">
+					</div>
+
+
+					<div class="image resize-drag image-pos2 center">	
+						<div class="image-delete" onclick="deleteParent(this)"> </div>	
+						<p> Click aici pentru a adauga poza ta </p>
+						<input onchange="changeImage(this)" type="file" accept="image/*">
+						<img src="#">
+					</div>
+
+
+				</div>
+				-->
+				<div class="pg-nr-right">1</div>
+			</div>
+			
+		</div> <!-- Album -->
+
+
+
+
+		<footer>
+			<div class="nav-btn main-btn center prev">
+				<img src="assets/img/arrow.png">
+			</div>
+			<div class="footer-btn-container center">
+				<div class="footer-btn" onclick="">
+					Fundal
+				</div>
+				<div class="footer-btn" onclick="">
+					Numar Poze pe Pagina
+				</div>
+				<div class="footer-btn add-photo-btn">
+					Adauga poze
+				</div>
+				<div class="footer-btn add-photo-btn2">
+					Adauga poze
+				</div>
+				<div class="footer-btn" onclick="">
+					Adauga text
+				</div>
+				<div class="footer-btn add-page-btn">
+					Adauga 2 Pagini
+				</div>
+				<div class="footer-btn" onclick="">
+					Sterge Pagina
+				</div>
+
+				<div class="footer-btn undo" onclick="">
+					Undo
+				</div>
+				<div class="footer-btn redo" onclick="">
+					Redo
+				</div>
+				<div class="footer-btn save" onclick="generatePdf()">
+					Salveaza
+				</div>
+
+			</div>
+			<div class="nav-btn main-btn center next">
+				<img src="assets/img/arrow.png">
+			</div>
+		</footer>
+	</div>
+</div>
+
+	
+
+
+<!-- jQuery -->	
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<!-- Interact.js -->
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<!-- Html2canvas -->
+<script type="text/javascript" src="assets/js/html2canvas.min.js"></script>
+<!-- Svg to PDF -->
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+
+<script type="text/javascript" src="assets/js/interact.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/generatePages.js"></script>
+<script type="text/javascript" src="assets/js/generatePDF.js"></script>
+<script type="text/javascript" src="assets/js/actions.js"></script>
+</body>
+</html>
