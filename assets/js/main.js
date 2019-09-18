@@ -11,7 +11,7 @@ $( document ).ready(function() {
             const page = `  <div id="album-page-nr${this.counter}" class="album-page resize-container">
                             <p> Click aici pentru a adauga poza ta </p>
                             <input type="file" accept="image/*" onchange="changePageBg(this)">	
-                            <img src="/assets/img/background.png">
+                            <img src="assets/img/background.png">
 
                             <div class="image resize-drag image-pos1 center">
                                 <div class="image-delete" onclick="deleteParent(this)"> </div>		
