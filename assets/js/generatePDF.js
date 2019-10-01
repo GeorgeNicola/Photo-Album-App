@@ -1,41 +1,115 @@
-
-let albumPageWidth = 297;
-let albumPageHeight = 210;
-let orientation = 'l';
-//Dimensions
+/*******************************
+    Page Format
+*******************************/
 
 
-function changePagesResolution(width, height) {
-    albumPageWidth = width;
-    albumPageHeight = height;
-    for(i=0;i<albumPage.length;i++){
-        albumPage[i].style.width = `${2*width}px`;
-        albumPage[i].style.height = `${2*height}px`;
-    }
+let format = {
+    orientation: `l`,
+    pdfWidth: 595,
+    pdfHeight:842,
+    pageWidth: 297,
+    pageHeight: 210
 }
 
-let resolutions = [
-    {
-      width:'210',
-      height:'297'
-    },
-    {
-      width:'297',
-      height:'210'
-    },
-];
+function changeResolution(dimension){
 
-let resBtn = document.querySelectorAll(".resolution-button");
-for(i=0;i<resBtn.length;i++){
-    let k = i;
-    resBtn[i].addEventListener("click", function chooseRes(){
-        changePagesResolution(resolutions[k].width, resolutions[k].height);
-        if(k==1) orientation = 'l';
-        else orientation = 'p';
-        $(".resolution-container").hide();
-        $(".dark-layer").hide();
-    });
-}//Choose the resolution
+    if(dimension == `a4portret`){
+        format.orientation = `p`;
+    //    format.pdfWidth = 210*4.01;
+    //    format.pdfHeight = 297*2.0034;
+        format.pdfWidth = 842;
+        format.pdfHeight = 595;
+
+        format.pageWidth = 210;
+        format.pageHeight = 297;
+
+        document.querySelector(".pageDimensions").innerHTML = `${format.pageWidth/10} x ${format.pageHeight/10} cm`;
+        document.querySelectorAll(".landscape div")[0].style.width = "0.8em";
+        document.querySelectorAll(".landscape div")[1].style.width = "0.8em";
+
+        document.documentElement.style.setProperty('--album-page-width', `355px`);
+        document.documentElement.style.setProperty('--album-page-height', `500px`);
+        _(".resolutions-container").style.display = `none`;
+        _(".dark-layer").style.display = `none`;
+    }
+
+    if(dimension == `a4panoramic`){
+        format.orientation = `l`;
+        format.pdfWidth = 842;
+        format.pdfHeight = 595;
+
+        format.pageWidth = 297;
+        format.pageHeight = 210;
+
+        document.querySelector(".pageDimensions").innerHTML = `${format.pageWidth/10} x ${format.pageHeight/10} cm`;
+
+        document.querySelectorAll(".landscape div")[0].style.width = "2em";
+        document.querySelectorAll(".landscape div")[1].style.width = "2em";
+
+        document.documentElement.style.setProperty('--album-page-width', `500px`);
+        document.documentElement.style.setProperty('--album-page-height', `355px`);
+        _(".resolutions-container").style.display = `none`;
+        _(".dark-layer").style.display = `none`;
+    }
+
+    if(dimension == `20patrat`){
+        format.orientation = `p`;
+        format.pdfWidth = 567;
+        format.pdfHeight = 567;
+
+        format.pageWidth = 200;
+        format.pageHeight = 200;
+
+        document.querySelector(".pageDimensions").innerHTML = `${format.pageWidth/10} x ${format.pageHeight/10} cm`;
+
+        document.querySelectorAll(".landscape div")[0].style.width = "1.25em";
+        document.querySelectorAll(".landscape div")[1].style.width = "1.25em";
+
+        document.documentElement.style.setProperty('--album-page-width', `355px`);
+        document.documentElement.style.setProperty('--album-page-height', `355px`);
+        _(".resolutions-container").style.display = `none`;
+        _(".dark-layer").style.display = `none`;
+    }
+
+    if(dimension == `a5panoramic`){
+        format.orientation = `l`;
+        format.pdfWidth = 595;
+        format.pdfHeight = 397;
+
+        format.pageWidth = 210;
+        format.pageHeight = 140;
+
+        document.querySelector(".pageDimensions").innerHTML = `${format.pageWidth/10} x ${format.pageHeight/10} cm`;
+
+        document.querySelectorAll(".landscape div")[0].style.width = "2em";
+        document.querySelectorAll(".landscape div")[1].style.width = "2em";
+
+        document.documentElement.style.setProperty('--album-page-width', `400px`);
+        document.documentElement.style.setProperty('--album-page-height', `310px`);
+        _(".resolutions-container").style.display = `none`;
+        _(".dark-layer").style.display = `none`;
+    }
+
+    if(dimension == `14patrat`){
+        format.orientation = `p`;
+        format.pdfWidth = 397;
+        format.pdfHeight = 397;
+
+        format.pageWidth = 140;
+        format.pageHeight = 140;
+
+        document.querySelector(".pageDimensions").innerHTML = `${format.pageWidth/10} x ${format.pageHeight/10} cm`;
+
+        document.querySelectorAll(".landscape div")[0].style.width = "1.25em";
+        document.querySelectorAll(".landscape div")[1].style.width = "1.25em";
+
+        document.documentElement.style.setProperty('--album-page-width', `355px`);
+        document.documentElement.style.setProperty('--album-page-height', `355px`);
+        _(".resolutions-container").style.display = `none`;
+        _(".dark-layer").style.display = `none`;
+    }
+
+}//Alegerea formatului paginilor
 
 
 
@@ -45,44 +119,45 @@ for(i=0;i<resBtn.length;i++){
 
 
 
-
+/*******************************
+    Algorithm: GENERATE PDF
+*******************************/
 
 function showPage(selectedPage){
     let page = document.querySelectorAll(".album-page");
     for(k=0;k<page.length;k++){
-        page[k].style.display = 'none';
+        page[k].style.display = "none";
     }
     page[selectedPage].style.display = 'block';
 }//Show Album Pages
 
 
 
-function generatePdf(quality = 4){   
-    let page = document.querySelectorAll(".album-page");
+function generatePdf(quality = 3){   
+    const totalPages = document.querySelectorAll(".album-page");
     
     const pdf = new jsPDF({
-        orientation: `${orientation}`,
+        orientation: format.orientation,
         unit: 'mm',
-      //  format: [albumPageWidth, albumPageHeight]
-      // 595 x 846 pt A4
-        format: 'a4'
+        format: [`${format.pdfWidth}`, `${format.pdfHeight}`]
     });
-
     let albumPage = document.querySelectorAll(".album-page");
-    for(let i=0;i<albumPage.length;i++){
-        setTimeout(showPage(i), 500);
-        html2canvas(page[i], {scale: quality})
+
+
+
+
+    for(let i=0;i<totalPages.length;i++){
+        setTimeout(showPage(i), 250);
+        html2canvas(albumPage[i], {scale: quality})
             .then(canvas => {  
             imgData = canvas.toDataURL('image/png');
-         //   211 298 
-         //   pdf.addImage(imgData,'PNG', 0, 0, albumPageWidth, albumPageHeight) ;
-            pdf.addImage(imgData,'PNG', 0, 0, 297, 210);
-
-            if(i == albumPage.length-1){
+            pdf.addImage(imgData,'PNG', 0, 0, `${format.pageWidth}`, `${format.pageHeight}`);
+            console.log(i);
+            if(i == totalPages.length-1){
                 pdf.save("Album Foto.pdf");
             }
             else{
-                pdf.addPage();   
+                pdf.addPage();
             }
         });
     }

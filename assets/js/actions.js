@@ -33,8 +33,12 @@ _('.elements-gallery-btn').addEventListener("click", function(){
 
 
 
+/*********************************************
+    Schimbare imagine din container de poza
+*********************************************/
+
     function changeImage(thisElement){
-        thisElement.previousElementSibling.style.display = "none"; //Elimina textul
+    //    thisElement.previousElementSibling.style.display = "none"; //Elimina textul
         var files = !!thisElement.files ? thisElement.files : [];
         if ( !files.length || !window.FileReader ) return;
         let here = thisElement;
@@ -52,20 +56,17 @@ _('.elements-gallery-btn').addEventListener("click", function(){
                 //Adauga pozele si in galerie
             }
         }
-    }//Adauga Imagine
-
-
-
+    }//Schimba imaginea pe pagina ( poza de pe album )
 
     function deleteParent(thisElement){
         thisElement.parentElement.style.display = "none";
-    };//Sterge Imaginea / X pt Imagini
+    };//Sterge imagine de pe Pagina ( cosul de gunoi )
+
 
 
 
 
     function changePageBg(thisElement){
-        thisElement.previousElementSibling.style.display = "none"; //Elimina textul
         var files = !!thisElement.files ? thisElement.files : [];
         if ( !files.length || !window.FileReader ) return;
         let here = thisElement;
@@ -76,21 +77,13 @@ _('.elements-gallery-btn').addEventListener("click", function(){
                 here.nextElementSibling.src = `${this.result}`;
                 here.nextElementSibling.style.display = 'block';
 
-
                 var image = document.createElement("IMG");
                 image.setAttribute("src",`${this.result}`);
                 _('.bg-gallery .gallery-container').appendChild(image);
                 //Adauga pozele si in galerie
             }
         }
-    }
-
-
-
-  //  let albumPageInput = $$('.album-page input');
-   //     for(let j=0;j<albumPageInput.length;j++){
-  //          albumPageInput[j].addEventListener("change", changePageBg(albumPageInput[j]));
-  //  }//Upload Backgrounds to Album's Pages
+    }//Schimare Fundal pagina
 
 
 
@@ -99,52 +92,11 @@ _('.elements-gallery-btn').addEventListener("click", function(){
 
 
 
-    _('.gallery-add-photo').addEventListener("change", function changeImage(){
-        var files = !!this.files ? this.files : [];
-        if ( !files.length || !window.FileReader ) return;
-        if ( /^image/.test( files[0].type ) ) {
-            var reader = new FileReader();
-            reader.readAsDataURL( files[0] );
-            reader.onloadend = function(){
-                let src = `${this.result}`;
 
-                var image = document.createElement("IMG");
-                image.setAttribute("src", src);
-                _('.photo-gallery .gallery-container').appendChild(image);
-            }
-        }
-    });//Adaugare Poze in galerie
 
-    _('.gallery-add-bg').addEventListener("change", function changeImage(){
-        var files = !!this.files ? this.files : [];
-        if ( !files.length || !window.FileReader ) return;
-        if ( /^image/.test( files[0].type ) ) {
-            var reader = new FileReader();
-            reader.readAsDataURL( files[0] );
-            reader.onloadend = function(){
-                let src = `${this.result}`;
 
-                var image = document.createElement("IMG");
-                image.setAttribute("src", src);
-                _('.bg-gallery .gallery-container').appendChild(image);
-            }
-        }
-    });//Adaugare fundal in galerie
 
-    _('.gallery-add-elements').addEventListener("change", function changeImage(){
-        var files = !!this.files ? this.files : [];
-        if ( !files.length || !window.FileReader ) return;
-        if ( /^image/.test( files[0].type ) ) {
-            var reader = new FileReader();
-            reader.readAsDataURL( files[0] );
-            reader.onloadend = function(){
-                let src = `${this.result}`;
+    
 
-                var image = document.createElement("IMG");
-                image.setAttribute("src", src);
-                _('.elements-gallery .gallery-container').appendChild(image);
-            }
-        }
-    });//Adaugare elemente in galerie
 
 

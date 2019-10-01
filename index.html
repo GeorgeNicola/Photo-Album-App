@@ -6,6 +6,94 @@
 </head>
 <body>
 <div class="container">
+	<div class="dark-layer">
+
+	</div>
+
+	<div class="resolutions-container">
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect2 center">
+					Portret
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				<span> 21 x 29,7 cm / A4 </span><br>
+
+			</p>
+			<div class="res-box-btn"  onclick="changeResolution('a4portret')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect1 center">
+					Panoramic
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				29,7 x 21 cm / A4<br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('a4panoramic')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect3 center">
+					Patrat
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				20 x 20 cm <br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('20patrat')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect4 center">
+					Panoramic
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				21 x 14 cm / A5 <br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('a5panoramic')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect5 center">
+					Patrat
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				14 x 14 cm <br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('14patrat')">
+				Alege
+			</div>
+		</div>
+		
+	</div>
+
+
 	<div class="gallery theme-gallery">
 		<div class="gallery-close"></div>
 		<div class="gallery-container">
@@ -34,8 +122,15 @@
 
 	<div class="gallery bg-gallery">
 		<div class="gallery-close"></div>
-		<div class="gallery-container">
-			<img src="assets/img/photo1.JPG">
+		<div class="gallery-container" id="bg-gallery-container">
+			<img src="assets/img/fundal/bg1.jpg">
+			<img src="assets/img/fundal/bg2.jpg">
+			<img src="assets/img/fundal/bg3.jpg">
+			<img src="assets/img/fundal/bg4.png">
+			<img src="assets/img/fundal/bg5.jfif">
+			<img src="assets/img/fundal/bg6.jpg">
+			<img src="assets/img/fundal/bg7.jpg">
+
 		</div>
 		<div class="gallery-btn-container">
 			<div class="main-btn center">
@@ -47,8 +142,13 @@
 
 	<div class="gallery elements-gallery">
 		<div class="gallery-close"></div>
-		<div class="gallery-container">
-			<img src="assets/img/photo3.JPG">
+		<div class="gallery-container" id="elements-gallery-container">
+			<img src="assets/img/elemente/glasses.png">
+			<img src="assets/img/elemente/heart.png">
+			<img src="assets/img/elemente/kiss.png">
+			<img src="assets/img/elemente/sad.png">
+			<img src="assets/img/elemente/tongue.png">
+			<img src="assets/img/elemente/wink.png">
 		</div>
 		<div class="gallery-btn-container">
 			<div class="main-btn center">
@@ -74,12 +174,12 @@
 		<div class="main-btn center elements-gallery-btn">
 			Elemente grafice
 		</div>
-		<div class="main-btn center" onclick="">
+	<!--	<div class="main-btn center" onclick="">
 			Import din Excel
 		</div>
-
+	-->
 		<div class="page-menu-container">
-			Page 1
+			
 		</div>
 	</div> <!-- Menu -->
 
@@ -92,11 +192,18 @@
 			<div class="lay-header">
 				<div class="header-el">
 					<p> Dimensiune </p>
-					<p class="header-selected"> 297 x 210 mm </p>
+					<p class="header-selected pageDimensions"> 297 x 210 mm </p>
 				</div>
 				<div class="header-el">
 					<p> Landscape </p>
-					<p class="header-selected"> 297 x 210 mm </p>
+					<div class="landscape center">
+						<div class="landscape-left">
+
+						</div>
+						<div class="landscape-right">
+							
+						</div>
+					</div>
 				</div>
 				<div class="header-el">
 					<p> Numar pagini </p>
@@ -113,10 +220,10 @@
 
 			</div>
 			<div class="lay-header__btn-container">
-				<div class="lay-header-btn main-btn center">
+				<div class="lay-header-btn main-btn center vizualizare">
 					Vizualizare
 				</div>
-				<div class="lay-header-btn main-btn center">
+				<div class="lay-header-btn main-btn center comanda">
 					Comanda
 				</div>
 			</div>
@@ -125,62 +232,12 @@
 
 
 
+
 		<div class="lay-album-container">
 			<div class="page-container page-left">
-
-
-				<!--
-				<div class="album-page resize-container">
-					<p> Click aici pentru a adauga poza ta </p>
-					<input type="file" accept="image/*" onchange="changePageBg(this)">	
-					<img src="/assets/img/background.png">
-
-
-					<div class="image resize-drag image-pos1 center">
-						<div class="image-delete" onclick="deleteParent(this)"> </div>	
-						<p> Click aici pentru a adauga poza ta </p>
-						<input onchange="changeImage(this)" type="file" accept="image/*">
-						<img src="#">
-					</div>
-
-
-					<div class="image resize-drag image-pos2 center">
-						<div class="image-delete" onclick="deleteParent(this)"> </div>		
-						<p> Click aici pentru a adauga poza ta </p>
-						<input onchange="changeImage(this)" type="file" accept="image/*">
-						<img src="#">
-					</div>
-				</div>
-			-->
 				<div class="pg-nr-left">0</div>
 			</div>
-
-			
 			<div class="page-container page-right">
-		<!--		<div class="album-page resize-container">
-					<p> Click aici pentru a adauga poza ta </p>
-					<input type="file" accept="image/*"  onchange="changePageBg(this)">	
-					<img src="/assets/img/background.png">
-
-
-					<div class="image resize-drag image-pos1 center">	
-						<div class="image-delete" onclick="deleteParent(this)"> </div>	
-						<p> Click aici pentru a adauga poza ta </p>
-						<input onchange="changeImage(this)" type="file" accept="image/*">
-						<img src="#">
-					</div>
-
-
-					<div class="image resize-drag image-pos2 center">	
-						<div class="image-delete" onclick="deleteParent(this)"> </div>	
-						<p> Click aici pentru a adauga poza ta </p>
-						<input onchange="changeImage(this)" type="file" accept="image/*">
-						<img src="#">
-					</div>
-
-
-				</div>
-				-->
 				<div class="pg-nr-right">1</div>
 			</div>
 			
@@ -194,7 +251,8 @@
 				<img src="assets/img/arrow.png">
 			</div>
 			<div class="footer-btn-container center">
-				<div class="footer-btn" onclick="">
+				<div class="footer-btn bg-change-btn">
+					<input type="file" accept="image/*" >
 					Fundal
 				</div>
 				<div class="footer-btn" onclick="">
@@ -206,22 +264,23 @@
 				<div class="footer-btn add-photo-btn2">
 					Adauga poze
 				</div>
-				<div class="footer-btn" onclick="">
+				<div class="footer-btn add-text-btn">
 					Adauga text
 				</div>
 				<div class="footer-btn add-page-btn">
 					Adauga 2 Pagini
 				</div>
-				<div class="footer-btn" onclick="">
+				<div class="footer-btn del-page-btn">
 					Sterge Pagina
 				</div>
-
+<!--
 				<div class="footer-btn undo" onclick="">
 					Undo
 				</div>
 				<div class="footer-btn redo" onclick="">
 					Redo
 				</div>
+-->
 				<div class="footer-btn save" onclick="generatePdf()">
 					Salveaza
 				</div>
@@ -248,10 +307,8 @@
 <!-- Svg to PDF -->
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 
-
 <script type="text/javascript" src="assets/js/interact.js"></script>
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/js/generatePages.js"></script>
 <script type="text/javascript" src="assets/js/generatePDF.js"></script>
 <script type="text/javascript" src="assets/js/actions.js"></script>
 </body>

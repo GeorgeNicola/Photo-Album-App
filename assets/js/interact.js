@@ -20,7 +20,7 @@ interact('.resize-drag')
 
       // minimum size
       interact.modifiers.restrictSize({
-        min: { width: 100, height: 50 }
+          min: { width: 50, height: 50 }
       })
     ],
 
@@ -50,7 +50,7 @@ interact('.resize-drag')
 
 
 
-
+/*
   //Draggable
   // target elements with the "draggable" class
 interact('.draggable')
@@ -61,7 +61,7 @@ interact('.draggable')
   modifiers: [
     interact.modifiers.restrictRect({
       restriction: 'parent',
-      endOnly: true
+      endOnly: true,
     })
   ],
   // enable autoScroll
@@ -80,6 +80,8 @@ interact('.draggable')
         .toFixed(2) + 'px')
   }
 })
+*/
+
 
 function dragMoveListener (event) {
 var target = event.target
@@ -97,5 +99,10 @@ target.setAttribute('data-x', x)
 target.setAttribute('data-y', y)
 }
 
+
+/*
+
 // this is used later in the resizing and gesture demos
 window.dragMoveListener = dragMoveListener
+
+*/
