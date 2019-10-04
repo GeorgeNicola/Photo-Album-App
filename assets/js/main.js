@@ -2,7 +2,7 @@ $( document ).ready(function() {
     var pagesCounter = 0;
     let currentPage = 0;
     let currentBg = "assets/img/background.png"; 
-    let selectedPage = 0;
+    let selectedPage;
 
     class page {
         constructor(counter, side) {
@@ -28,6 +28,13 @@ $( document ).ready(function() {
 
             if(this.side == `right`){ $(".page-right").append(page);}   
             if(this.side == `left`){ $(".page-left").append(page);}
+
+
+                _(`#album-page-nr${this.counter}`).addEventListener("click", function selectPage(){
+                    deSelectPage();
+                    this.classList.add("album-page-selected");
+                });
+
 
             this.standardImage();  
             this.show();         
@@ -213,6 +220,7 @@ $( document ).ready(function() {
 
 
 
+
     /*******************************
         Functiile de la inceput
     *******************************/
@@ -251,32 +259,78 @@ $( document ).ready(function() {
     //Functiile de inceput
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function showList(){
         for(i=0;i<pagesCounter;i++){
             albumPage[i].pageList();
         }
     }//Functie Afisare lista de pagini stanga
+
     let resBoxBtn = $$(".res-box-btn");
     for(i=0;i<resBoxBtn.length;i++){
         $$(".res-box-btn")[i].addEventListener("click", showList);
+    }//Afisare lista stanga
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function deSelectPage(){
+        let pageTest = document.querySelectorAll(".album-page");
+        for(i=0;i<pagesCounter;i++){
+            pageTest[i].classList.remove("album-page-selected");
+        }
     }
+/*
+    function selectPage(){
+        deSelectPage();
+        this.classList.add("album-page-selected");
+    }
+*/
+
+    document.querySelectorAll(".album-page")[0].classList.add("album-page-selected");
+
+
+
+
+
+
+
+
+/*******************************
+    Text Pagini
+*******************************/
+/*
+    _(".add-text-btn").addEventListener("click", function addText(){
+        albumPage[currentPage].addText();
+    })
+*/
+
+_(".add-text-btn").addEventListener("click", function addText(){
+    albumPage[selectedPage].addText();
+})
 
 
 
@@ -449,22 +503,6 @@ $( document ).ready(function() {
 
 
 
-/*******************************
-    Text Pagini
-*******************************/
-
-    _(".add-text-btn").addEventListener("click", function addText(){
-        albumPage[currentPage].addText();
-    })
-
-
-
-
-
-
-
-
-
 
 
 
@@ -553,33 +591,6 @@ $( document ).ready(function() {
 
     _(".add-page-btn").addEventListener("click", newPages);//Btn Adaugare 2 Pagini
     _(".del-page-btn").addEventListener("click", delPages);//Btn Stergere 2 Pagini
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

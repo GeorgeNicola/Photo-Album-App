@@ -278,6 +278,8 @@ footer{
 	border-right:0;
 }
 
+
+
 .page-right .album-page{
 	position:absolute;
 	left:-2.5px;
@@ -357,6 +359,9 @@ footer{
 	display:block;
 }
 
+.album-page-selected{
+	border-color:red;
+}
 
 
 /**************************
