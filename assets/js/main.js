@@ -30,14 +30,15 @@ $( document ).ready(function() {
             if(this.side == `left`){ $(".page-left").append(page);}
 
 
-                _(`#album-page-nr${this.counter}`).addEventListener("click", function selectPage(){
-                    deSelectPage();
-                    this.classList.add("album-page-selected");
-                });
+                _(`#album-page-nr${this.counter}`).addEventListener("click", selectPage);
 
 
             this.standardImage();  
             this.show();         
+        }
+
+        selectPage(){
+            _(`#album-page-nr${this.counter}`).classList.add("album-page-selected");
         }
 
         pageList(){
@@ -65,7 +66,7 @@ $( document ).ready(function() {
 
         addText(){
             let textBox = `<textarea class="resize-drag page-text"> Text </textarea>`;
-            $(`#album-page-nr${this.counter}`).append(textBox);  
+            $(`#album-page-nr${this.counter}`).append(textBox);   
         }
 
         standardImage(width = `75%`, height = `70%`, top = `15%`, left = `12.5%`, right = ` `, bottom = ` `){
@@ -303,14 +304,22 @@ $( document ).ready(function() {
             pageTest[i].classList.remove("album-page-selected");
         }
     }
-/*
+
     function selectPage(){
         deSelectPage();
         this.classList.add("album-page-selected");
+        if($(this).parent().hasClass("page-left")) selectedPage = currentPage;
+        if($(this).parent().hasClass("page-right")) selectedPage = currentPage + 1;
+        console.log(selectedPage);
     }
-*/
-
     document.querySelectorAll(".album-page")[0].classList.add("album-page-selected");
+
+
+    function selectPageNav(){
+        deSelectPage();
+        selectedPage = currentPage;
+        albumPage[selectedPage].selectPage();
+    }
 
 
 
@@ -535,6 +544,8 @@ _(".add-text-btn").addEventListener("click", function addText(){
 
         _(".pg-nr-left").innerHTML = `${currentPage+1}`;
         _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+
+        selectPageNav();
     });//Pagina anterioara
 
     _(".next").addEventListener("click", function nextPage(){
@@ -549,6 +560,8 @@ _(".add-text-btn").addEventListener("click", function addText(){
 
         _(".pg-nr-left").innerHTML = `${currentPage+1}`;
         _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+
+        selectPageNav();
     });//Urmatoarea Pagina
 
 
