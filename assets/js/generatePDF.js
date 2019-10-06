@@ -6,7 +6,7 @@
 let format = {
     orientation: `l`,
     pdfWidth: 595,
-    pdfHeight:842,
+    pdfHeight: 842,
     pageWidth: 297,
     pageHeight: 210
 }
@@ -26,6 +26,10 @@ function changeResolution(dimension){
         document.querySelector(".pageDimensions").innerHTML = `${format.pageWidth/10} x ${format.pageHeight/10} cm`;
         document.querySelectorAll(".landscape div")[0].style.width = "0.8em";
         document.querySelectorAll(".landscape div")[1].style.width = "0.8em";
+
+
+        //CSS width: 355px;
+        //CSS height: 500px;
 
         document.documentElement.style.setProperty('--album-page-width', `355px`);
         document.documentElement.style.setProperty('--album-page-height', `500px`);
@@ -65,8 +69,8 @@ function changeResolution(dimension){
         document.querySelectorAll(".landscape div")[0].style.width = "1.25em";
         document.querySelectorAll(".landscape div")[1].style.width = "1.25em";
 
-        document.documentElement.style.setProperty('--album-page-width', `355px`);
-        document.documentElement.style.setProperty('--album-page-height', `355px`);
+        document.documentElement.style.setProperty('--album-page-width', `450px`);
+        document.documentElement.style.setProperty('--album-page-height', `450px`);
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }
@@ -84,8 +88,8 @@ function changeResolution(dimension){
         document.querySelectorAll(".landscape div")[0].style.width = "2em";
         document.querySelectorAll(".landscape div")[1].style.width = "2em";
 
-        document.documentElement.style.setProperty('--album-page-width', `400px`);
-        document.documentElement.style.setProperty('--album-page-height', `310px`);
+        document.documentElement.style.setProperty('--album-page-width', `500px`);
+        document.documentElement.style.setProperty('--album-page-height', `355px`);
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }
@@ -103,8 +107,8 @@ function changeResolution(dimension){
         document.querySelectorAll(".landscape div")[0].style.width = "1.25em";
         document.querySelectorAll(".landscape div")[1].style.width = "1.25em";
 
-        document.documentElement.style.setProperty('--album-page-width', `355px`);
-        document.documentElement.style.setProperty('--album-page-height', `355px`);
+        document.documentElement.style.setProperty('--album-page-width', `450px`);
+        document.documentElement.style.setProperty('--album-page-height', `450px`);
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }

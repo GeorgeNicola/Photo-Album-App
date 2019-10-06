@@ -30,15 +30,23 @@ _('.elements-gallery-btn').addEventListener("click", function(){
     _('.elements-gallery').style.display = "block";
 }); //Afisare Galerie Elemente Grafice
 
+_('.layout-btn').addEventListener("click", function(){
+    _('.layout-gallery').style.display = "block";
+}); //Afisare Galerie Layout
 
+_('.vizualizare').addEventListener("click", function(){
+    _('#vizualizare').style.display = "block";
+}); //Afisare Galerie Layout
 
+_('.vizualizare-close-btn').addEventListener("click", function(){
+    _('#vizualizare').style.display = "none";
+}); //Afisare Galerie Layout
 
-/*********************************************
-    Schimbare imagine din container de poza
-*********************************************/
+    /*********************************************
+        Schimbare imagine din container de poza
+    *********************************************/
 
     function changeImage(thisElement){
-    //    thisElement.previousElementSibling.style.display = "none"; //Elimina textul
         var files = !!thisElement.files ? thisElement.files : [];
         if ( !files.length || !window.FileReader ) return;
         let here = thisElement;
@@ -56,7 +64,7 @@ _('.elements-gallery-btn').addEventListener("click", function(){
                 //Adauga pozele si in galerie
             }
         }
-    }//Schimba imaginea pe pagina ( poza de pe album )
+    }//Schimba imaginea pe pagina ( butonul de upload )
 
     function deleteParent(thisElement){
         thisElement.parentElement.style.display = "none";
@@ -66,29 +74,10 @@ _('.elements-gallery-btn').addEventListener("click", function(){
 
 
 
-    function changePageBg(thisElement){
-        var files = !!thisElement.files ? thisElement.files : [];
-        if ( !files.length || !window.FileReader ) return;
-        let here = thisElement;
-        if ( /^image/.test( files[0].type ) ) {
-            var reader = new FileReader();
-            reader.readAsDataURL( files[0] );
-            reader.onloadend = function(){
-                here.nextElementSibling.src = `${this.result}`;
-                here.nextElementSibling.style.display = 'block';
-
-                var image = document.createElement("IMG");
-                image.setAttribute("src",`${this.result}`);
-                _('.bg-gallery .gallery-container').appendChild(image);
-                //Adauga pozele si in galerie
-            }
-        }
-    }//Schimare Fundal pagina
 
 
 
-
-
+  
 
 
 

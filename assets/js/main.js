@@ -29,9 +29,7 @@ $( document ).ready(function() {
             if(this.side == `right`){ $(".page-right").append(page);}   
             if(this.side == `left`){ $(".page-left").append(page);}
 
-
-                _(`#album-page-nr${this.counter}`).addEventListener("click", selectPage);
-
+            _(`#album-page-nr${this.counter}`).addEventListener("click", selectPage);//Logica selectare pagini
 
             this.standardImage();  
             this.show();         
@@ -109,6 +107,14 @@ $( document ).ready(function() {
                                 <img src="${photo.src}" style="display:block;">
                             </div>`;
             $(`#album-page-nr${this.counter}`).append(image);
+        }
+
+        imagesLayout0(){
+            let delPg =  document.querySelectorAll(`#album-page-nr${this.counter} .image`);
+            for(i=0;i<delPg.length;i++)
+                delPg[i].remove();
+
+            this.standardImage();
         }
 
         imagesLayout1(){
@@ -198,15 +204,11 @@ $( document ).ready(function() {
 
     }//Clasa Paginilor
 
-    _(".add-photo-btn").addEventListener("click", function addImage(){
-        albumPage[currentPage].standardImage();
-    });//Btn Adaugare Imagine
-
-    _(".add-photo-btn2").addEventListener("click", function addImage(){
-        albumPage[currentPage+1].standardImage();
-    });//Btn Adaugare Imagine
-
-
+    function hideAllPages(){
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].hide();
+        }
+    }
 
     function showPage(selectedPage){
         let page = document.querySelectorAll(".album-page");
@@ -216,9 +218,6 @@ $( document ).ready(function() {
        // page[selectedPage].style.display = 'block';
         albumPage[selectedPage].show();
     }//Show Album Pages
-
-
-
 
 
 
@@ -250,6 +249,7 @@ $( document ).ready(function() {
     _(".pg-nr-left").innerHTML = `${currentPage+1}`;
     _(".pg-nr-right").innerHTML = `${currentPage+2}`;
 
+    document.querySelectorAll(".album-page")[0].classList.add("album-page-selected");
     albumPage[currentPage].imagesLayout5();
     albumPage[currentPage+1].imagesLayout6();
     albumPage[currentPage+2].imagesLayout3();
@@ -260,50 +260,19 @@ $( document ).ready(function() {
     //Functiile de inceput
 
 
-    function showList(){
-        for(i=0;i<pagesCounter;i++){
-            albumPage[i].pageList();
-        }
-    }//Functie Afisare lista de pagini stanga
-
-    let resBoxBtn = $$(".res-box-btn");
-    for(i=0;i<resBoxBtn.length;i++){
-        $$(".res-box-btn")[i].addEventListener("click", showList);
-    }//Afisare lista stanga
 
 
 
+    /*******************************
+        Page Selection
+    *******************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function deSelectPage(){
+   function deSelectPage(){
         let pageTest = document.querySelectorAll(".album-page");
         for(i=0;i<pagesCounter;i++){
             pageTest[i].classList.remove("album-page-selected");
         }
-    }
+    }//Deselect All Pages
 
     function selectPage(){
         deSelectPage();
@@ -314,12 +283,98 @@ $( document ).ready(function() {
     }
     document.querySelectorAll(".album-page")[0].classList.add("album-page-selected");
 
-
     function selectPageNav(){
         deSelectPage();
         selectedPage = currentPage;
         albumPage[selectedPage].selectPage();
+    }//Selecteaza pag stanga cand se navigheaza intre pagini
+
+
+
+
+
+    /*******************************
+        Navigare intre Pagini
+    *******************************/
+
+    function prevPage(){
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].hide();
+        }
+        currentPage = currentPage-2;
+        if(currentPage < 0) currentPage=0;
+        console.log(currentPage);
+        albumPage[currentPage].show();
+        albumPage[currentPage+1].show();
+
+        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
+        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+
+        selectPageNav();
     }
+    _(".prev").addEventListener("click", prevPage);//Pagina anterioara
+
+
+    function nextPage(){
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].hide();
+        }
+        currentPage = currentPage+2;
+        if(currentPage >= pagesCounter) currentPage=pagesCounter-2;
+        console.log(pagesCounter);
+        albumPage[currentPage].show();
+        albumPage[currentPage+1].show();
+
+        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
+        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+
+        selectPageNav();
+    }
+    _(".next").addEventListener("click", nextPage);//Urmatoarea Pagina
+
+
+    /*******************************
+        Adaugare/Stergere Pagini
+    *******************************/
+
+    function newPages(){
+        albumPage.push(new page(pagesCounter,`left`));
+        albumPage.push(new page(pagesCounter+1,`right`));
+        albumPage[pagesCounter].build();
+        albumPage[pagesCounter+1].build();
+
+        currentPage = pagesCounter;
+        pagesCounter = pagesCounter+2;
+        _(".pagesCounter").innerHTML = pagesCounter;
+        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
+        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+
+        selectPageNav();
+    }//Functie adaugare 2 Pagini
+
+    function delPages(){
+        albumPage[currentPage].delete();
+        albumPage[currentPage+1].delete();
+
+        albumPage.splice(currentPage,2);
+
+        if(currentPage == 0) currentPage = 0;
+        else currentPage -= 2;
+
+        pagesCounter -= 2;
+        albumPage[currentPage].show();
+        albumPage[currentPage+1].show();
+        //TO DO: if's pentru fiecare situatie
+
+        _(".pagesCounter").innerHTML = pagesCounter;
+        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
+        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+
+        selectPageNav();
+    }//Functie stergere 2 Pagini
+
+    _(".add-page-btn").addEventListener("click", newPages);//Btn Adaugare 2 Pagini
+    _(".del-page-btn").addEventListener("click", delPages);//Btn Stergere 2 Pagini
 
 
 
@@ -328,18 +383,6 @@ $( document ).ready(function() {
 
 
 
-/*******************************
-    Text Pagini
-*******************************/
-/*
-    _(".add-text-btn").addEventListener("click", function addText(){
-        albumPage[currentPage].addText();
-    })
-*/
-
-_(".add-text-btn").addEventListener("click", function addText(){
-    albumPage[selectedPage].addText();
-})
 
 
 
@@ -358,10 +401,61 @@ _(".add-text-btn").addEventListener("click", function addText(){
 
 
 
+    /*******************************
+        Layout Pagini
+    *******************************/
 
-/*******************************
-    Fundal Pagini
-*******************************/
+    let layout = document.querySelectorAll("#layout-gallery-container img")
+
+    layout[0].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout0(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+
+    layout[1].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout1(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+
+    layout[2].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout2(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+
+    layout[3].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout3(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+
+    layout[4].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout4(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+
+    layout[5].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout5(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+
+    layout[6].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout6(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+    layout[7].addEventListener("click", function(){ 
+        albumPage[selectedPage].imagesLayout7(); 
+        _(".layout-gallery").style.display = 'none';
+    });
+    //Galerie Imagini: adaugare imagine pe pagina
+
+
+
+
+
+
+
+    /*******************************
+        Fundal Pagini
+    *******************************/
 
     function changeCurrPgBg(){
         var files = !!this.files ? this.files : [];
@@ -370,13 +464,14 @@ _(".add-text-btn").addEventListener("click", function addText(){
                 var reader = new FileReader();
                 reader.readAsDataURL( files[0] );
                 reader.onloadend = function(){
-                    albumPage[currentPage].changeBg(this.result);
+                    albumPage[selectedPage].changeBg(this.result);
 
-
+                    /*
                     var image = document.createElement("IMG");
                     image.setAttribute("src",`${this.result}`);
                     _('#bg-gallery-container').appendChild(image);
                     //Adauga pozele si in galerie
+                    */
                 }
             }
     }//Schimba imaginea paginii curente cu "input"
@@ -421,19 +516,17 @@ _(".add-text-btn").addEventListener("click", function addText(){
 
 
 
+    /*******************************
+        Imagini Pagini
+    *******************************/
 
+    _(".add-photo-btn").addEventListener("click", function addImage(){
+        albumPage[selectedPage].standardImage();
+    });//Btn Adaugare Imagine
 
-
-
-
-
-
-/*******************************
-    Imagini Pagini
-*******************************/
     function addPhotoToPage(){
         _(".photo-gallery").style.display = "none";
-            albumPage[currentPage].imageSrc(this);
+            albumPage[selectedPage].imageSrc(this);
     }//Functie: adauga poza din galerie
 
 
@@ -463,19 +556,13 @@ _(".add-text-btn").addEventListener("click", function addText(){
 
 
 
-
-
-
-
-
-
-/*******************************
-    Elemente Grafice
-*******************************/
+    /*******************************
+        Elemente Grafice
+    *******************************/
 
     function addElementToPage(){
         _(".elements-gallery").style.display = "none";
-            albumPage[currentPage].addElement(this);
+            albumPage[selectedPage].addElement(this);
     }//Functie: adauga poza din galerie
 
 
@@ -505,6 +592,13 @@ _(".add-text-btn").addEventListener("click", function addText(){
 
 
 
+    /*******************************
+        Text Pagini
+    *******************************/
+
+    _(".add-text-btn").addEventListener("click", function addText(){
+        albumPage[selectedPage].addText();
+    })
 
 
 
@@ -523,87 +617,93 @@ _(".add-text-btn").addEventListener("click", function addText(){
 
 
 
+    /*******************************
+        Lista pagini stanga
+    *******************************/
 
-
-
-
-
-/*******************************
-    Navigare intre Pagini
-*******************************/
-
-    _(".prev").addEventListener("click", function prevPage(){
+    function showList(){
         for(i=0;i<pagesCounter;i++){
-            albumPage[i].hide();
+            albumPage[i].pageList();
         }
-        currentPage = currentPage-2;
-        if(currentPage < 0) currentPage=0;
-        console.log(currentPage);
-        albumPage[currentPage].show();
-        albumPage[currentPage+1].show();
+        prevPage();
+    }//Functie Afisare lista de pagini stanga
 
-        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
-        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+    let resBoxBtn = $$(".res-box-btn");
+    for(i=0;i<resBoxBtn.length;i++){
+        $$(".res-box-btn")[i].addEventListener("click", showList);
+    }//Afisare lista stanga
 
-        selectPageNav();
-    });//Pagina anterioara
 
-    _(".next").addEventListener("click", function nextPage(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+            let div = document.createElement("div");
+            let img = document.createElement("img");
+            img.src = imgData;
+            img.style.width = '350px';
+            img.style.height = '300px';
+
+            div.append(img);
+            _(".flipbook").appendChild(div);
+*/
+
+
+
+
+    let flipbookPage = document.querySelectorAll(".album-page");
+
+    function testFlip(){
         for(i=0;i<pagesCounter;i++){
-            albumPage[i].hide();
+            flipbookPage[i].style.display ="block";
+            let k=i;//Bug Fix
+            html2canvas(flipbookPage[i]).then(canvas => {
+                imgData = canvas.toDataURL('image/png');
+                page = $("<div />", {"class": `p${k+1}`}).html(`<img src="${imgData}">`);
+                $(".flipbook").turn("addPage", page);
+            });
         }
-        currentPage = currentPage+2;
-        if(currentPage >= pagesCounter) currentPage=pagesCounter-2;
-        console.log(pagesCounter);
-        albumPage[currentPage].show();
-        albumPage[currentPage+1].show();
-
-        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
-        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
-
-        selectPageNav();
-    });//Urmatoarea Pagina
+    }
+    _(".vizualizare").addEventListener("click", testFlip);
 
 
-/*******************************
-    Adaugare/Stergere Pagini
-*******************************/
 
-    function newPages(){
-        albumPage.push(new page(pagesCounter,`left`));
-        albumPage.push(new page(pagesCounter+1,`right`));
-        albumPage[pagesCounter].build();
-        albumPage[pagesCounter+1].build();
 
-        currentPage = pagesCounter;
-        pagesCounter = pagesCounter+2;
-        _(".pagesCounter").innerHTML = pagesCounter;
-        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
-        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
-        
-    }//Functie adaugare 2 Pagini
 
-    function delPages(){
-        albumPage[currentPage].delete();
-        albumPage[currentPage+1].delete();
+    /*******************************
+        FlipBook Library
+    *******************************/
+    function loadApp() {
+		$('.flipbook').turn({
+				width:700,
+				height:350,
+				gradients: true,
+		});
+	}
 
-        albumPage.splice(currentPage,2);
+	yepnope({
+		test : Modernizr.csstransforms,
+		yep: ['assets/js/turn.js'],
+		nope: ['assets/js/turn.html4.min.js'],
+	//	both: ['assets/css/basic.css'],
+		complete: loadApp
+	});
 
-        if(currentPage == 0) currentPage = 0;
-        else currentPage -= 2;
 
-        pagesCounter -= 2;
-        albumPage[currentPage].show();
-        albumPage[currentPage+1].show();
-        //TO DO: if's pentru fiecare situatie
-
-        _(".pagesCounter").innerHTML = pagesCounter;
-        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
-        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
-    }//Functie stergere 2 Pagini
-
-    _(".add-page-btn").addEventListener("click", newPages);//Btn Adaugare 2 Pagini
-    _(".del-page-btn").addEventListener("click", delPages);//Btn Stergere 2 Pagini
 
 
 
