@@ -165,5 +165,10 @@ function generatePdf(quality = 3){
             }
         });
     }
-    
+
+    for(i=0;i<totalPages.length;i++){
+        albumPage[i].style.display = "none";
+    }
+    albumPage[0].style.display = "block";
+    albumPage[totalPages.length/2].style.display = "block";
 } 

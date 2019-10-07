@@ -191,14 +191,17 @@ $( document ).ready(function() {
 
         changeBg(image){
             $(`#album-page-nr${this.counter}`).children('img').attr('src', `${image}`);
-            $(`#album-page-nr${this.counter}`).children('img').css({"object-fit":"cover",
+            
+            $(`#album-page-nr${this.counter}`).children('img').css({"width":"100%",
                                                                     "min-height":"100%",
                                                                     "min-width":"100%",
-                                                                    "width":"auto", 
                                                                     "position":"absolute",
                                                                     "top":"0",
-                                                                    "left":"50%",
-                                                                    "transform":"translateX(-50%)"})                                                        
+                                                                    "left":"0",
+                                                                    "bottom":"0",
+                                                                    "right":"0",
+                                                                    "margin":"auto",
+                                                                    })                                                     
         }
 
 
@@ -228,7 +231,7 @@ $( document ).ready(function() {
     let albumPage = new Array();
     function buildAlbum(){
         currentPage=0;
-        for(i=0;i<10;i++){
+        for(i=0;i<12;i++){
             let side;
             if(i%2==0) side=`left`;
             else side=`right`; 
@@ -380,27 +383,6 @@ $( document ).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /*******************************
         Layout Pagini
     *******************************/
@@ -450,6 +432,27 @@ $( document ).ready(function() {
 
 
 
+    /*******************************
+        Teme
+    *******************************/
+
+
+    function themeBaby(){
+        currentBg = "assets/img/teme/baby.jpg";
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].changeBg("assets/img/teme/baby.jpg");
+        }
+        let image = document.querySelectorAll(".image");
+        for(i=0;i<image.length;i++){
+            image[i].style.borderColor = "lightgreen";
+        }
+
+        let page = document.querySelectorAll(".album-page");
+        for(i=0;i<image.length;i++){
+            page[i].style.borderColor = "lightgreen";
+        }
+    }
+    _(".theme-baby").addEventListener("click", themeBaby);
 
 
 
@@ -623,7 +626,8 @@ $( document ).ready(function() {
 
     function showList(){
         for(i=0;i<pagesCounter;i++){
-            albumPage[i].pageList();
+           // albumPage[i].pageList();
+           setInterval(albumPage[i].pageList(), 100);
         }
         prevPage();
     }//Functie Afisare lista de pagini stanga
