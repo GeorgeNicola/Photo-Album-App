@@ -668,10 +668,21 @@ $( document ).ready(function() {
 
 
 
-
-    let flipbookPage = document.querySelectorAll(".album-page");
-
     function testFlip(){
+        deSelectPage();
+
+        let pageLeft = document.querySelectorAll(".page-left .album-page");
+        let pageRight = document.querySelectorAll(".page-right .album-page");
+        //let flipbookPage = document.querySelectorAll(".album-page");
+        let flipbookPage =[];
+        flipbookPage.push(pageLeft[0]);
+        for(i=1;i<=(pagesCounter-2)/2;i++)
+        {
+            flipbookPage.push(pageLeft[i]);
+            flipbookPage.push(pageRight[i]);
+        }
+        flipbookPage.push(pageRight[0]);
+
         for(i=0;i<pagesCounter;i++){
             flipbookPage[i].style.display ="block";
             let k=i;//Bug Fix
@@ -681,6 +692,10 @@ $( document ).ready(function() {
                 $(".flipbook").turn("addPage", page);
             });
         }
+
+        //albumPage[0].show();
+        //albumPage[1].show();
+        prevPage();
     }
     _(".vizualizare").addEventListener("click", testFlip);
 
@@ -691,14 +706,16 @@ $( document ).ready(function() {
     /*******************************
         FlipBook Library
     *******************************/
+
     function loadApp() {
+
 		$('.flipbook').turn({
-				width:700,
-				height:350,
+				//width:flipWidth,
+				//height:flipHeight/2,
 				gradients: true,
 		});
-	}
-
+    }
+    
 	yepnope({
 		test : Modernizr.csstransforms,
 		yep: ['assets/js/turn.js'],
@@ -706,12 +723,6 @@ $( document ).ready(function() {
 	//	both: ['assets/css/basic.css'],
 		complete: loadApp
 	});
-
-
-
-
-
-
 
     
 });

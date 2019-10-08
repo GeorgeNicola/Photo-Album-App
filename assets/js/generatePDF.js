@@ -33,6 +33,9 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `355px`);
         document.documentElement.style.setProperty('--album-page-height', `500px`);
+
+        $(".flipbook").turn("size", 710, `${1000/2}`);
+
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }
@@ -52,6 +55,9 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `500px`);
         document.documentElement.style.setProperty('--album-page-height', `355px`);
+
+        $(".flipbook").turn("size", 1000, `${710/2}`);
+
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }
@@ -71,6 +77,9 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `450px`);
         document.documentElement.style.setProperty('--album-page-height', `450px`);
+
+        $(".flipbook").turn("size", 800, `${800/2}`);
+
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }
@@ -90,6 +99,9 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `500px`);
         document.documentElement.style.setProperty('--album-page-height', `355px`);
+
+        $(".flipbook").turn("size", 1000, `${710/2}`);
+
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }
@@ -109,10 +121,12 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `450px`);
         document.documentElement.style.setProperty('--album-page-height', `450px`);
+
+        $(".flipbook").turn("size", 800, `${800/2}`);
+
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
     }
-
 }//Alegerea formatului paginilor
 
 
