@@ -81,12 +81,12 @@ $( document ).ready(function() {
                                 <input type="file" onchange="changeImage(this)" accept="image/*">
                                 <img src="#">
                             </div>`;
-            $(`#album-page-nr${this.counter}`).append(image);            
+            $(`#album-page-nr${this.counter}`).append(image);    
         }
 
         imageSrc(photo){
             const image = `<div class="image resize-drag center"
-                            style=" width:75%;
+                            style=" max-width:"80%";
                                     height:70%;
                                     left:12.5%;
                                     top:15%; 
@@ -97,6 +97,7 @@ $( document ).ready(function() {
                                 <img src="${photo.src}" style="display:block;">
                             </div>`;
             $(`#album-page-nr${this.counter}`).append(image);
+            _(".dark-layer").style.display = "none";
         }
 
         addElement(photo){
@@ -105,8 +106,9 @@ $( document ).ready(function() {
                                 <div class="image-upload"> </div>	
                                 <input type="file" onchange="changeImage(this)" accept="image/*">
                                 <img src="${photo.src}" style="display:block;">
-                            </div>`;
+                            </div>`;                
             $(`#album-page-nr${this.counter}`).append(image);
+            _(".dark-layer").style.display = "none";
         }
 
         imagesLayout0(){
@@ -201,7 +203,8 @@ $( document ).ready(function() {
                                                                     "bottom":"0",
                                                                     "right":"0",
                                                                     "margin":"auto",
-                                                                    })                                                     
+                                                                    })  
+            _(".dark-layer").style.display = "none";                                                                                                           
         }
 
 
@@ -253,13 +256,6 @@ $( document ).ready(function() {
     _(".pg-nr-right").innerHTML = `${currentPage+2}`;
 
     document.querySelectorAll(".album-page")[0].classList.add("album-page-selected");
-    albumPage[currentPage].imagesLayout5();
-    albumPage[currentPage+1].imagesLayout6();
-    albumPage[currentPage+2].imagesLayout3();
-    albumPage[currentPage+3].imagesLayout4();
-    albumPage[currentPage+4].imagesLayout1();
-    albumPage[currentPage+5].imagesLayout2();
-    albumPage[currentPage+6].imagesLayout7();
     //Functiile de inceput
 
 
@@ -392,40 +388,48 @@ $( document ).ready(function() {
     layout[0].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout0(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
 
     layout[1].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout1(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
 
     layout[2].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout2(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
 
     layout[3].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout3(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
 
     layout[4].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout4(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
 
     layout[5].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout5(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
 
     layout[6].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout6(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
     layout[7].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout7(); 
         _(".layout-gallery").style.display = 'none';
+        _(".dark-layer").style.display = "none";        
     });
     //Galerie Imagini: adaugare imagine pe pagina
 
@@ -451,8 +455,65 @@ $( document ).ready(function() {
         for(i=0;i<image.length;i++){
             page[i].style.borderColor = "lightgreen";
         }
+        _(".theme-gallery").style.display = "none";
     }
     _(".theme-baby").addEventListener("click", themeBaby);
+
+    function themeNature(){
+        currentBg = "assets/img/teme/baby.jpg";
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].changeBg("assets/img/teme/nature.jpg");
+        }
+        let image = document.querySelectorAll(".image");
+        for(i=0;i<image.length;i++){
+            image[i].style.borderColor = "lightgreen";
+        }
+
+        let page = document.querySelectorAll(".album-page");
+        for(i=0;i<image.length;i++){
+            page[i].style.borderColor = "green";
+        }
+        _(".theme-gallery").style.display = "none";
+    }
+    _(".theme-nature").addEventListener("click", themeNature);
+
+    function themeSky(){
+        currentBg = "assets/img/teme/baby.jpg";
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].changeBg("assets/img/teme/sky.jpg");
+        }
+        let image = document.querySelectorAll(".image");
+        for(i=0;i<image.length;i++){
+            image[i].style.borderColor = "#ffffff";
+        }
+
+        let page = document.querySelectorAll(".album-page");
+        for(i=0;i<image.length;i++){
+            page[i].style.borderColor = "#264b66";
+        }
+        _(".theme-gallery").style.display = "none";
+    }
+    _(".theme-sky").addEventListener("click", themeSky);
+
+    function themeOcean(){
+        currentBg = "assets/img/teme/baby.jpg";
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].changeBg("assets/img/teme/ocean.jpg");
+        }
+        let image = document.querySelectorAll(".image");
+        for(i=0;i<image.length;i++){
+            image[i].style.borderColor = "#54c7e2";
+        }
+
+        let page = document.querySelectorAll(".album-page");
+        for(i=0;i<image.length;i++){
+            page[i].style.borderColor = "#007995";
+        }
+        _(".theme-gallery").style.display = "none";
+    }
+    _(".theme-ocean").addEventListener("click", themeOcean);
+
+
 
 
 

@@ -152,26 +152,41 @@ function showPage(selectedPage){
 
 
 function generatePdf(quality = 3){   
-    const totalPages = document.querySelectorAll(".album-page");
+    const totalPages = document.querySelectorAll(".album-page").length;
     
     const pdf = new jsPDF({
         orientation: format.orientation,
         unit: 'mm',
         format: [`${format.pdfWidth}`, `${format.pdfHeight}`]
     });
-    let albumPage = document.querySelectorAll(".album-page");
+    //let albumPage = document.querySelectorAll(".album-page");
+
+
+        let pageLeft = document.querySelectorAll(".page-left .album-page");
+        let pageRight = document.querySelectorAll(".page-right .album-page");
+        let albumPage = [];
+
+        albumPage.push(pageLeft[0]);
+
+        for(i=1;i<=(totalPages-2)/2;i++)
+        {
+            albumPage.push(pageLeft[i]);
+            albumPage.push(pageRight[i]);
+        }
+
+        albumPage.push(pageRight[0]);
 
 
 
 
-    for(let i=0;i<totalPages.length;i++){
-        setTimeout(showPage(i), 250);
-        html2canvas(albumPage[i], {scale: quality})
-            .then(canvas => {  
+    for(let i=0;i<totalPages;i++){
+        //setTimeout(showPage(i), 250);
+        albumPage[i].style.display = "block";
+        html2canvas(albumPage[i], {scale: quality}).then(canvas => {  
             imgData = canvas.toDataURL('image/png');
             pdf.addImage(imgData,'PNG', 0, 0, `${format.pageWidth}`, `${format.pageHeight}`);
             console.log(i);
-            if(i == totalPages.length-1){
+            if(i == totalPages-1){
                 pdf.save("Album Foto.pdf");
             }
             else{
@@ -180,9 +195,11 @@ function generatePdf(quality = 3){
         });
     }
 
-    for(i=0;i<totalPages.length;i++){
+    for(i=0;i<totalPages;i++){
         albumPage[i].style.display = "none";
     }
-    albumPage[0].style.display = "block";
-    albumPage[totalPages.length/2].style.display = "block";
+    //albumPage[0].style.display = "block";
+    //albumPage[1].style.display = "block";
+    pageLeft[0].style.display = "block";
+    pageRight[0].style.display = "block";
 } 
