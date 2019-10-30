@@ -15,6 +15,9 @@ body{
 
 	--album-page-width: 500px;
 	--album-page-height: 355px;
+	--album-page-border-color: white;
+	--image-border-color:white;
+
 
 	--flip-page-width: 750px;
 	--flip-page-height: 750px;
@@ -370,6 +373,7 @@ footer{
 	width:var(--album-page-width);
 	height:var(--album-page-height);
 	border:3px solid white;
+	border-color:var(--album-page-border-color);
 	box-sizing:border-box;
 	border-radius:5px;
 	background-size:100% 100%;
@@ -378,7 +382,7 @@ footer{
 }
 
 .album-page-selected{
-	border-color:red;
+	border-color:red !important;
 }
 
 .album-page > img{
@@ -512,9 +516,10 @@ footer{
 	z-index:3;
 	height:70%;
 	border:4px solid white;
+	border-color:var(--image-border-color);
 	box-shadow:2px 2px 15px grey;
 	background-color:rgba(233, 188, 138, 0.5);
-	overflow:hidden;
+	overflow:hidden; 
 
 	/*Interact*/
 	box-sizing: border-box;
@@ -550,9 +555,34 @@ footer{
 
 .image > img{
 	display:none;
+	/*
 	height:100%;
 	width:auto;
 	left:50%;
+	*/
+
+	/*
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	transform:translate(0, 0);
+	*/
+
+	/*
+	width:100%;
+	object-fit:cover;
+	*/
+
+	width:100%;
+	min-height:100%;
+	min-width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	margin:auto;
 
 }
 

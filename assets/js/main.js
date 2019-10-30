@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     var pagesCounter = 0;
     let currentPage = 0;
-    let currentBg = "assets/img/background.png"; 
+    let currentBg = "assets/img/fundal/2.jpg"; 
     let selectedPage;
 
     class page {
@@ -62,6 +62,13 @@ $( document ).ready(function() {
             $(`#album-page-nr${this.counter}`).remove();
         }
 
+        empty(){
+            let image = $$(`#album-page-nr${this.counter} .resize-drag`);
+            for(i=0;i<image.length;i++){
+                image[i].remove();
+            }
+        }
+
         addText(){
             let textBox = `<textarea class="resize-drag page-text"> Text </textarea>`;
             $(`#album-page-nr${this.counter}`).append(textBox);   
@@ -86,8 +93,9 @@ $( document ).ready(function() {
 
         imageSrc(photo){
             const image = `<div class="image resize-drag center"
-                            style=" max-width:"80%";
-                                    height:70%;
+                            style=" 
+                                    position:absolute;
+                                    width:75%;
                                     left:12.5%;
                                     top:15%; 
                             ">	
@@ -376,7 +384,10 @@ $( document ).ready(function() {
     _(".del-page-btn").addEventListener("click", delPages);//Btn Stergere 2 Pagini
 
 
-
+    function emptyPage(){
+        albumPage[selectedPage].empty();
+    }
+    _(".empty-page-btn").addEventListener("click", emptyPage);//Btn Stergere 2 Pagini
 
 
     /*******************************
@@ -446,71 +457,57 @@ $( document ).ready(function() {
         for(i=0;i<pagesCounter;i++){
             albumPage[i].changeBg("assets/img/teme/baby.jpg");
         }
+        /*
         let image = document.querySelectorAll(".image");
         for(i=0;i<image.length;i++){
             image[i].style.borderColor = "lightgreen";
         }
+        */
 
+        /*
         let page = document.querySelectorAll(".album-page");
         for(i=0;i<image.length;i++){
             page[i].style.borderColor = "lightgreen";
         }
+        */
+        document.documentElement.style.setProperty('--album-page-border-color', 'lightgreen');
+        document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
     }
-    _(".theme-baby").addEventListener("click", themeBaby);
 
     function themeNature(){
-        currentBg = "assets/img/teme/baby.jpg";
+        currentBg = "assets/img/teme/nature.jpg";
         for(i=0;i<pagesCounter;i++){
             albumPage[i].changeBg("assets/img/teme/nature.jpg");
         }
-        let image = document.querySelectorAll(".image");
-        for(i=0;i<image.length;i++){
-            image[i].style.borderColor = "lightgreen";
-        }
-
-        let page = document.querySelectorAll(".album-page");
-        for(i=0;i<image.length;i++){
-            page[i].style.borderColor = "green";
-        }
+        document.documentElement.style.setProperty('--album-page-border-color', 'green');
+        document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
     }
-    _(".theme-nature").addEventListener("click", themeNature);
 
     function themeSky(){
-        currentBg = "assets/img/teme/baby.jpg";
+        currentBg = "assets/img/teme/sky.jpg";
         for(i=0;i<pagesCounter;i++){
             albumPage[i].changeBg("assets/img/teme/sky.jpg");
         }
-        let image = document.querySelectorAll(".image");
-        for(i=0;i<image.length;i++){
-            image[i].style.borderColor = "#ffffff";
-        }
-
-        let page = document.querySelectorAll(".album-page");
-        for(i=0;i<image.length;i++){
-            page[i].style.borderColor = "#264b66";
-        }
+        document.documentElement.style.setProperty('--album-page-border-color', '#264b66');
+        document.documentElement.style.setProperty('--image-border-color', '#ffffff');
         _(".theme-gallery").style.display = "none";
     }
-    _(".theme-sky").addEventListener("click", themeSky);
 
     function themeOcean(){
-        currentBg = "assets/img/teme/baby.jpg";
+        currentBg = "assets/img/teme/ocean.jpg";
         for(i=0;i<pagesCounter;i++){
             albumPage[i].changeBg("assets/img/teme/ocean.jpg");
         }
-        let image = document.querySelectorAll(".image");
-        for(i=0;i<image.length;i++){
-            image[i].style.borderColor = "#54c7e2";
-        }
-
-        let page = document.querySelectorAll(".album-page");
-        for(i=0;i<image.length;i++){
-            page[i].style.borderColor = "#007995";
-        }
+        document.documentElement.style.setProperty('--album-page-border-color', '#007995');
+        document.documentElement.style.setProperty('--image-border-color', '#007995');
         _(".theme-gallery").style.display = "none";
     }
+
+    _(".theme-baby").addEventListener("click", themeBaby);
+    _(".theme-nature").addEventListener("click", themeNature);
+    _(".theme-sky").addEventListener("click", themeSky);
     _(".theme-ocean").addEventListener("click", themeOcean);
 
 
@@ -611,6 +608,7 @@ $( document ).ready(function() {
                 var image = document.createElement("IMG");
                 image.addEventListener("click", addPhotoToPage);
                 image.setAttribute("src", src);
+                image.setAttribute("onclick", "addPhotoToPage()");
                 _('.photo-gallery .gallery-container').appendChild(image);
             }
         }

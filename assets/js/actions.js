@@ -10,8 +10,7 @@ var $$ = function (selector) {
 let galleryClose = $$('.gallery-close');
 for(let i=0;i<galleryClose.length;i++){
     galleryClose[i].addEventListener("click", function(){
-        this.parentElement.style.display = "none";
-        _(".dark-layer").style.display = "none";
+        hideGallery();
     });
 } // X button at gallery
 
@@ -19,8 +18,8 @@ function hideGallery(){
     let gallery = $$(".gallery");
     for(i=0;i<gallery.length;i++){
         gallery[i].style.display = "none";
-        _(".dark-layer").style.display = "none";
     }
+    _(".dark-layer").style.display = "none";
 }
 
 _(".theme-gallery-btn").addEventListener("click", function(){
@@ -33,6 +32,7 @@ _('.photo-gallery-btn').addEventListener("click", function(){
     hideGallery();
     _('.photo-gallery').style.display = "block";
     _(".dark-layer").style.display = "block";
+    
 }); //Afisare Galerie Foto
 
 _('.bg-gallery-btn').addEventListener("click", function(){
@@ -79,7 +79,8 @@ _('.vizualizare-close-btn').addEventListener("click", function(){
 
                 var image = document.createElement("IMG");
                 image.setAttribute("src",`${this.result}`);
-                _('#photo-gallery-container').appendChild(image);
+               // _('#photo-gallery-container').appendChild(image);
+                image.addEventListener("click", addPhotoToPage);
                 //Adauga pozele si in galerie
             }
         }
