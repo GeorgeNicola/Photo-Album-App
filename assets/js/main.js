@@ -3,12 +3,20 @@ $( document ).ready(function() {
     let currentPage = 0;
     let currentBg = "assets/img/fundal/2.jpg"; 
     let selectedPage;
+    var rotateId = 0;
+
+    function getRotateId(){
+        console.log(rotateId);
+        rotateId++;
+        return rotateId;
+    }
 
     class page {
         constructor(counter, side) {
             this.counter = counter;
             this.side = side;
         }
+
     /*    build(){
             const page = `  <div id="album-page-nr${this.counter}" class="album-page resize-container">
                                 <p class="album-page-p"> Click aici pentru a schimba fundalul </p>
@@ -28,8 +36,8 @@ $( document ).ready(function() {
 
             if(this.side == `right`){ $(".page-right").append(page);}   
             if(this.side == `left`){ $(".page-left").append(page);}
-
-            _(`#album-page-nr${this.counter}`).addEventListener("click", selectPage);//Logica selectare pagini
+     
+            _(`#album-page-nr${this.counter}`).addEventListener("click", selectPage);
 
             this.standardImage();  
             this.show();         
@@ -41,13 +49,34 @@ $( document ).ready(function() {
 
         pageList(){
             let page = _(`#album-page-nr${this.counter}`);
+            let pageCounter = this.counter;
             page.style.display = "block";
-            html2canvas(page).then(canvas => {  
+            html2canvas(page, {scale: 1.5}).then(canvas => {  
                 let imgData = canvas.toDataURL('image/png');
                 let img = document.createElement("IMG");
+                img.setAttribute("id", `preview${this.counter}`);
+                //img.id = `#album-page-nr${this.counter}_prev`;
+
+                img.addEventListener("click", function showPageList(){
+                    hideAllPages();
+                    showPage(pageCounter);
+                    albumPage[pageCounter+1].show();
+                });
                 img.src = imgData;
                 _(".page-menu-container").appendChild(img);
             }); 
+            
+
+           /*
+           let pageCopy = page.clone(true);
+           pageCopy.prop('id', `preview-image${this.counter}`);
+           pageCopy.removeClass("album-page");
+           pageCopy.addClass("page-menu-container-image");
+           pageCopy.width(50);
+           
+           $(".page-menu-container").append(pageCopy);
+
+           */
         }
 
         show(){
@@ -63,9 +92,14 @@ $( document ).ready(function() {
         }
 
         empty(){
-            let image = $$(`#album-page-nr${this.counter} .resize-drag`);
+            let image = $$(`#album-page-nr${this.counter} .rotate`);
             for(i=0;i<image.length;i++){
                 image[i].remove();
+            }
+
+            let image2 = $$(`#album-page-nr${this.counter} .resize-drag`);
+            for(i=0;i<image.length;i++){
+                image2[i].remove();
             }
         }
 
@@ -75,7 +109,8 @@ $( document ).ready(function() {
         }
 
         standardImage(width = `75%`, height = `70%`, top = `15%`, left = `12.5%`, right = ` `, bottom = ` `){
-            const image = `<div class="image resize-drag center"
+            //class resize-drag
+            const image = `<div class="image center rotate"
                             style=" width:${width};
                                     height:${height};
                                     right:${right};
@@ -88,11 +123,21 @@ $( document ).ready(function() {
                                 <input type="file" onchange="changeImage(this)" accept="image/*">
                                 <img src="#">
                             </div>`;
+            //$('.rotate').rotatable();
+
+            $(".rotate").each(function() {
+                $(this).rotatable({
+                    wheelRotate:true, 
+                });
+                $(this).resizable();
+                $(this).draggable();
+            });
             $(`#album-page-nr${this.counter}`).append(image);    
         }
 
         imageSrc(photo){
-            const image = `<div class="image resize-drag center"
+            let imgid = getRotateId();
+            const image = `<div class="image center resize-drag"
                             style=" 
                                     position:absolute;
                                     width:75%;
@@ -196,9 +241,6 @@ $( document ).ready(function() {
             this.standardImage(`36%`,`33%`,` `,` `,`12.5%`,`15%`);
         }
 
-
-
-
         changeBg(image){
             $(`#album-page-nr${this.counter}`).children('img').attr('src', `${image}`);
             
@@ -212,7 +254,30 @@ $( document ).ready(function() {
                                                                     "right":"0",
                                                                     "margin":"auto",
                                                                     })  
-            _(".dark-layer").style.display = "none";                                                                                                           
+            _(".dark-layer").style.display = "none";
+            
+            this.previewRefresh();
+        }
+
+        previewRefresh(){
+            console.log("da");
+            let page = _(`#album-page-nr${this.counter}`);
+            console.log(page);
+
+            let pageCounter = this.counter;
+            page.style.display = "block";
+            html2canvas(page, {scale: 1.5}).then(canvas => {  
+                let imgData = canvas.toDataURL('image/png');
+                let img = document.createElement("IMG");
+                img.setAttribute("id", `preview${this.counter}`);
+                img.addEventListener("click", function showPageList(){
+                    hideAllPages();
+                    showPage(pageCounter);
+                });
+                img.src = imgData;
+                //_(".page-menu-container").appendChild(img);
+                $(`#preview${this.counter}`).replaceWith(img);
+            }); 
         }
 
 
@@ -233,6 +298,11 @@ $( document ).ready(function() {
         albumPage[selectedPage].show();
     }//Show Album Pages
 
+    function refreshAllPages(){
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].previewRefresh();
+        }
+    }
 
 
     /*******************************
@@ -287,6 +357,7 @@ $( document ).ready(function() {
         if($(this).parent().hasClass("page-left")) selectedPage = currentPage;
         if($(this).parent().hasClass("page-right")) selectedPage = currentPage + 1;
         console.log(selectedPage);
+        albumPage[selectedPage].previewRefresh();
     }
     document.querySelectorAll(".album-page")[0].classList.add("album-page-selected");
 
@@ -386,6 +457,7 @@ $( document ).ready(function() {
 
     function emptyPage(){
         albumPage[selectedPage].empty();
+        albumPage[selectedPage].previewRefresh();
     }
     _(".empty-page-btn").addEventListener("click", emptyPage);//Btn Stergere 2 Pagini
 
@@ -399,48 +471,56 @@ $( document ).ready(function() {
     layout[0].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout0(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";
+        albumPage[selectPage].previewRefresh();        
     });
 
     layout[1].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout1(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";   
+        albumPage[selectPage].previewRefresh();        
     });
 
     layout[2].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout2(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";  
+        albumPage[selectPage].previewRefresh();         
     });
 
     layout[3].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout3(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";   
+        albumPage[selectPage].previewRefresh();        
     });
 
     layout[4].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout4(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none"; 
+        albumPage[selectPage].previewRefresh();          
     });
 
     layout[5].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout5(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";  
+        albumPage[selectPage].previewRefresh();         
     });
 
     layout[6].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout6(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";   
+        albumPage[selectPage].previewRefresh();        
     });
     layout[7].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout7(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";  
+        albumPage[selectPage].previewRefresh();         
     });
     //Galerie Imagini: adaugare imagine pe pagina
 
@@ -473,6 +553,7 @@ $( document ).ready(function() {
         document.documentElement.style.setProperty('--album-page-border-color', 'lightgreen');
         document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
+        refreshAllPages()
     }
 
     function themeNature(){
@@ -483,6 +564,7 @@ $( document ).ready(function() {
         document.documentElement.style.setProperty('--album-page-border-color', 'green');
         document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
+        refreshAllPages()
     }
 
     function themeSky(){
@@ -493,6 +575,7 @@ $( document ).ready(function() {
         document.documentElement.style.setProperty('--album-page-border-color', '#264b66');
         document.documentElement.style.setProperty('--image-border-color', '#ffffff');
         _(".theme-gallery").style.display = "none";
+        refreshAllPages()
     }
 
     function themeOcean(){
@@ -503,6 +586,7 @@ $( document ).ready(function() {
         document.documentElement.style.setProperty('--album-page-border-color', '#007995');
         document.documentElement.style.setProperty('--image-border-color', '#007995');
         _(".theme-gallery").style.display = "none";
+        refreshAllPages()
     }
 
     _(".theme-baby").addEventListener("click", themeBaby);
@@ -547,6 +631,7 @@ $( document ).ready(function() {
         for(j=0;j<pagesCounter;j++){
             albumPage[j].changeBg(this.src);
         }
+        refreshAllPages()
     }//Functie: schimba fundalul paginilor
 
 
@@ -583,11 +668,13 @@ $( document ).ready(function() {
 
     _(".add-photo-btn").addEventListener("click", function addImage(){
         albumPage[selectedPage].standardImage();
+        albumPage[selectedPage].previewRefresh();
     });//Btn Adaugare Imagine
 
     function addPhotoToPage(){
         _(".photo-gallery").style.display = "none";
             albumPage[selectedPage].imageSrc(this);
+            albumPage[selectedPage].previewRefresh();
     }//Functie: adauga poza din galerie
 
 
@@ -625,6 +712,7 @@ $( document ).ready(function() {
     function addElementToPage(){
         _(".elements-gallery").style.display = "none";
             albumPage[selectedPage].addElement(this);
+            albumPage[selectedPage].previewRefresh();
     }//Functie: adauga poza din galerie
 
 
@@ -660,6 +748,7 @@ $( document ).ready(function() {
 
     _(".add-text-btn").addEventListener("click", function addText(){
         albumPage[selectedPage].addText();
+        albumPage[selectedPage].previewRefresh();
     })
 
 
@@ -686,7 +775,7 @@ $( document ).ready(function() {
     function showList(){
         for(i=0;i<pagesCounter;i++){
            // albumPage[i].pageList();
-           setInterval(albumPage[i].pageList(), 100);
+            albumPage[i].pageList();
         }
         prevPage();
     }//Functie Afisare lista de pagini stanga

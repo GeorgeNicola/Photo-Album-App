@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Album App V2 </title>
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+	<!-- Rotate -->
+	<link rel="stylesheet" href="assets/css/jquery.ui.rotatable.css">
+</head>
+<body>
+<div class="container">
+	<div class="dark-layer">
+
+	</div>
+
+	<div id="vizualizare">
+		<div class="vizualizare-close-btn"></div>
+		<div class="flipbook-viewport">
+			<div class="container center">
+				<div class="flipbook">
+					<div class="center">Albumul se incarca ...</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="resolutions-container">
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect2 center">
+					Portret
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				<span> 21 x 29,7 cm / A4 </span><br>
+
+			</p>
+			<div class="res-box-btn"  onclick="changeResolution('a4portret')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect1 center">
+					Panoramic
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				29,7 x 21 cm / A4<br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('a4panoramic')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect3 center">
+					Patrat
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				20 x 20 cm <br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('20patrat')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect4 center">
+					Panoramic
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				21 x 14 cm / A5 <br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('a5panoramic')">
+				Alege
+			</div>
+		</div>
+
+		<div class="res-box">
+			<div class="res-rect-container">
+				<div class="rect5 center">
+					Patrat
+				</div>
+			</div>
+			<p>
+				Dimensiune: <br>
+				14 x 14 cm <br>
+
+			</p>
+			<div class="res-box-btn" onclick="changeResolution('14patrat')">
+				Alege
+			</div>
+		</div>
+		
+	</div>
+
+
+	<div class="gallery theme-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container">
+			<img src="assets/img/teme/baby.jpg" class="theme-baby">
+			<img src="assets/img/teme/nature.jpg" class="theme-nature">
+			<img src="assets/img/teme/sky.jpg" class="theme-sky">
+			<img src="assets/img/teme/ocean.jpg" class="theme-ocean">
+		</div>
+	</div>
+	<div class="gallery photo-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container" id="photo-gallery-container">
+			<img src="assets/img/photo1.JPG">
+			<img src="assets/img/photo2.JPG">
+			<img src="assets/img/photo3.JPG">
+			<img src="assets/img/photo4.JPG">
+		</div>
+		<div class="gallery-btn-container">
+			<div class="main-btn center">
+				<input class="gallery-add gallery-add-photo" type="file" name="myFile" accept="image/*">	
+				Adauga Poze
+			</div>
+		</div>
+	</div>
+
+	<div class="gallery bg-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container" id="bg-gallery-container">
+			<img src="assets/img/fundal/1.jpg">
+			<img src="assets/img/fundal/2.jpg">
+			<img src="assets/img/fundal/3.jpg">
+			<img src="assets/img/fundal/4.png">
+			<img src="assets/img/fundal/5.jpg">
+			<img src="assets/img/fundal/6.jpg">
+			<img src="assets/img/fundal/7.jpg">
+			<img src="assets/img/fundal/8.jpg">
+			<img src="assets/img/fundal/9.jpg">
+			<img src="assets/img/fundal/10.jpg">
+			<img src="assets/img/fundal/11.jpg">
+
+		</div>
+		<div class="gallery-btn-container">
+			<div class="main-btn center">
+				<input class="gallery-add gallery-add-bg" type="file" name="myFile" accept="image/*">	
+				Adauga Fundal
+			</div>
+		</div>
+	</div>
+
+	<div class="gallery elements-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container" id="elements-gallery-container">
+			<img src="assets/img/elemente/1.png">
+			<img src="assets/img/elemente/2.png">
+			<img src="assets/img/elemente/3.png">
+			<img src="assets/img/elemente/4.png">
+			<img src="assets/img/elemente/5.png">
+			<img src="assets/img/elemente/6.png">
+			<img src="assets/img/elemente/7.png">
+			<img src="assets/img/elemente/8.png">
+			<img src="assets/img/elemente/9.png">
+			<img src="assets/img/elemente/10.png">
+			<img src="assets/img/elemente/11.png">
+			<img src="assets/img/elemente/12.png">
+			<img src="assets/img/elemente/13.png">
+			<img src="assets/img/elemente/14.png">
+			<img src="assets/img/elemente/15.png">
+			<img src="assets/img/elemente/16.png">
+
+			
+		</div>
+		<div class="gallery-btn-container">
+			<div class="main-btn center">
+				<input class="gallery-add gallery-add-elements" type="file" name="myFile" accept="image/*">	
+				Adauga Element
+			</div>
+		</div>
+	</div>
+
+	<div class="gallery layout-gallery">
+		<div class="gallery-close"></div>
+		<div class="gallery-container" id="layout-gallery-container">
+			<img src="assets/img/layout/layout0.png">
+			<img src="assets/img/layout/layout1.png">
+			<img src="assets/img/layout/layout2.png">
+			<img src="assets/img/layout/layout3.png">
+			<img src="assets/img/layout/layout4.png">
+			<img src="assets/img/layout/layout5.png">
+			<img src="assets/img/layout/layout6.png">
+			<img src="assets/img/layout/layout7.png">
+		</div>
+	</div>
+
+
+
+	<!-- Menu -->
+	<div class="lay-menu">
+		<img src="assets/img/logo.png" class="logo">
+		<div class="main-btn center theme-gallery-btn">
+			Alege o tema
+		</div>
+		<div class="main-btn center photo-gallery-btn">
+			Galerie poze
+		</div>
+		<div class="main-btn center bg-gallery-btn">
+			Galerie fundaluri
+		</div>
+		<div class="main-btn center elements-gallery-btn">
+			Elemente grafice
+		</div>
+	<!--	<div class="main-btn center" onclick="">
+			Import din Excel
+		</div>
+	-->
+		<div class="page-menu-container">
+			
+		</div>
+	</div> <!-- Menu -->
+
+
+
+
+
+	<div class="lay-main">
+		<header>
+			<div class="lay-header">
+				<div class="header-el">
+					<p> Dimensiune </p>
+					<p class="header-selected pageDimensions"> 297 x 210 mm </p>
+				</div>
+				<div class="header-el">
+					<p> Landscape </p>
+					<div class="landscape center">
+						<div class="landscape-left">
+
+						</div>
+						<div class="landscape-right">
+							
+						</div>
+					</div>
+				</div>
+				<div class="header-el">
+					<p> Numar pagini </p>
+					<p class="header-selected pagesCounter"> 2 </p>
+				</div>
+				<div class="header-el">
+					<p> Pret </p>
+					<p class="header-selected"> 150 lei </p>
+				</div>
+				<div class="header-el">
+					<p> Termen livrare </p>
+					<p class="header-selected"> 4 zile </p>
+				</div>
+
+			</div>
+			<div class="lay-header__btn-container">
+				<div class="lay-header-btn main-btn center vizualizare">
+					Vizualizare
+				</div>
+				<div class="lay-header-btn main-btn center comanda">
+					Comanda
+				</div>
+			</div>
+		</header>
+
+
+
+
+
+		<div class="lay-album-container">
+			<div class="page-container page-left">
+				<div class="pg-nr-left">0</div>
+			</div>
+			<div class="page-container page-right">
+				<div class="pg-nr-right">1</div>
+			</div>
+			
+		</div> <!-- Album -->
+
+
+
+
+		<footer>
+			<div class="nav-btn main-btn center prev">
+				<img src="assets/img/arrow.png">
+			</div>
+			<div class="footer-btn-container center">
+				<div class="footer-btn bg-change-btn">
+					<input type="file" accept="image/*" >
+					Fundal
+				</div>
+				<div class="footer-btn layout-btn">
+					Amplasare Poze
+				</div>
+				<div class="footer-btn add-photo-btn">
+					Adauga poze
+				</div>
+				<div class="footer-btn add-text-btn">
+					Adauga text
+				</div>
+				<div class="footer-btn add-page-btn">
+					Adauga 2 Pagini
+				</div>
+				<div class="footer-btn empty-page-btn">
+					Goleste pagina
+				</div>
+				<div class="footer-btn del-page-btn">
+					Sterge Pagina
+				</div>
+<!--
+				<div class="footer-btn undo" onclick="">
+					Undo
+				</div>
+				<div class="footer-btn redo" onclick="">
+					Redo
+				</div>
+-->
+				<div class="footer-btn save" onclick="generatePdf()">
+					Salveaza
+				</div>
+
+			</div>
+			<div class="nav-btn main-btn center next">
+				<img src="assets/img/arrow.png">
+			</div>
+		</footer>
+	</div>
+</div>
+
+	
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+
+<!-- Interact.js -->
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<!-- Html2canvas -->
+<script type="text/javascript" src="assets/js/html2canvas.min.js"></script>
+<!-- Svg to PDF -->
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<!-- FlipBook -->
+<script type="text/javascript" src="assets/js/modernizr.2.5.3.min.js"></script>
+<!-- Rotate Img -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="assets/js/jquery.ui.rotatable.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+
+
+
+
+
+<script type="text/javascript" src="assets/js/interact.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/generatePDF.js"></script>
+<script type="text/javascript" src="assets/js/actions.js"></script>
+</body>
+</html>

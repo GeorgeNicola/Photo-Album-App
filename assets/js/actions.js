@@ -80,7 +80,7 @@ _('.vizualizare-close-btn').addEventListener("click", function(){
                 var image = document.createElement("IMG");
                 image.setAttribute("src",`${this.result}`);
                // _('#photo-gallery-container').appendChild(image);
-                image.addEventListener("click", addPhotoToPage);
+               // image.addEventListener("click", addPhotoToPage);
                 //Adauga pozele si in galerie
             }
         }

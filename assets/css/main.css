@@ -283,14 +283,46 @@ footer{
 }
 
 .page-menu-container{
+	position:relative;
 	width:100%;
-	padding:1.5em;
-	margin-top:1.25px;
 	border-radius:10px;
 	box-sizing:border-box;
 	background-color:var(--bg-color-main);
 
 	flex-grow: 1;
+}
+
+.page-menu-container{
+	overflow-Y:scroll;
+	padding-left:20px;
+
+	
+	display:grid;
+	grid-template-columns: 45% 45%;
+	grid-auto-rows: max-content;
+}
+
+.page-menu-container img{
+	width:100%;
+	display:block;
+	border-bottom:3px solid transparent;
+	margin:15px 0;
+}
+
+.page-menu-container img:hover{
+	border-bottom:3px solid black;
+}
+
+.page-menu-container-image{
+	position:relative;
+	width:100% !important;
+	height:100% !important;
+	background:Red;
+}
+
+.page-menu-container-image img{
+	width:100%;
+	height:100%;
 }
 
 .page-menu-container::-webkit-scrollbar-track
@@ -525,6 +557,26 @@ footer{
 	box-sizing: border-box;
 	touch-action: none;
 }
+
+
+.ui-rotatable-handle{
+	position:absolute;
+	z-index:5;
+	left:50% !important;
+	top:0px;
+	display:none !important;
+}
+.ui-resizable-handle{
+	display:none !important;
+}
+.image:hover .ui-rotatable-handle{
+	display:block !important;
+}
+.image:hover .ui-resizable-handle{
+	display:block !important;
+}
+
+
 
 .image:hover{
 	z-index:4;
@@ -895,28 +947,6 @@ footer{
 .page-text:hover{
 	border: 2px dotted white;
 }
-
-
-/*************************
-	Page List
-*************************/
-
-.page-menu-container{
-	overflow-Y:scroll;
-	max-height:70%;
-}
-
-.page-menu-container img{
-	width:90%;
-	display:block;
-	border:3px solid transparent;
-	margin:5px auto;
-}
-
-.page-menu-container img:hover{
-	border:3px solid black;
-}
-
 
 
 
