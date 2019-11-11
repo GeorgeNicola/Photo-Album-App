@@ -39,7 +39,7 @@ $( document ).ready(function() {
      
             _(`#album-page-nr${this.counter}`).addEventListener("click", selectPage);
 
-            this.standardImage();  
+            this.standardImage();
             this.show();         
         }
 
@@ -48,13 +48,25 @@ $( document ).ready(function() {
         }
 
         pageList(){
-            let page = _(`#album-page-nr${this.counter}`);
-            let pageCounter = this.counter;
-            page.style.display = "block";
+
+            let copy = $(`#album-page-nr${this.counter}`).clone();
+            copy.attr('id', `album-page-preview${this.counter}`);
+            copy.addClass("album-page-preview");
+            copy.removeClass("album-page");
+            copy.removeClass("resize-container");
+            copy.appendTo(".page-menu-container");
+
+
+            // let page = _(`#album-page-nr${this.counter}`);
+            //let pageCounter = this.counter;
+            //page.style.display = "block";
+
+            /*
             html2canvas(page, {scale: 1.5}).then(canvas => {  
                 let imgData = canvas.toDataURL('image/png');
                 let img = document.createElement("IMG");
                 img.setAttribute("id", `preview${this.counter}`);
+                img.setAttribute("class", `previewImg`);
                 //img.id = `#album-page-nr${this.counter}_prev`;
 
                 img.addEventListener("click", function showPageList(){
@@ -62,10 +74,12 @@ $( document ).ready(function() {
                     showPage(pageCounter);
                     albumPage[pageCounter+1].show();
                 });
-                img.src = imgData;
-                _(".page-menu-container").appendChild(img);
+                    img.src = imgData;
+                    //_(".page-menu-container").appendChild(img);
+                    $(".page-menu-container").append(img);
             }); 
-            
+            */
+
 
            /*
            let pageCopy = page.clone(true);
@@ -79,6 +93,68 @@ $( document ).ready(function() {
            */
         }
 
+        previewRefresh(){
+            console.log(`previewRefresh ${this.counter}`);
+
+            let copy = $(`#album-page-nr${this.counter}`).clone();
+            copy.attr('id', `album-page-preview${this.counter}`);
+            copy.addClass("album-page-preview");
+            copy.removeClass("album-page");
+            $(`#album-page-preview${this.counter}`).replaceWith(copy);
+
+
+            let copyImg = $(`#album-page-preview${this.counter} .image`);
+            let copyImgJs = $$(`#album-page-preview${this.counter} .image`);
+
+            for(i=0;i<copyImgJs.length;i++){
+                let curWidth = copyImg.eq(i).outerWidth();
+                let curHeight = copyImg.eq(i).height();
+                let curTransform = window.getComputedStyle(copyImgJs[i]).getPropertyValue("transform").match(/(-?[0-9\.]+)/g);
+                console.log(curHeight);
+
+                if(curTransform != null ) copyImg.eq(i).css({"transform": `translate(${curTransform[4]*0.15}px,${curTransform[5]*0.15}px)`});
+                if(curWidth > 100) copyImg.eq(i).width(curWidth/5.5);
+                if(curHeight > 100) copyImg.eq(i).height(curHeight/5.5);
+            }
+
+
+
+
+            /*
+            console.log("da");
+            let page = _(`#album-page-nr${this.counter}`);
+
+            let pageCounter = this.counter;
+            page.style.display = "block";
+            html2canvas(page, {scale: 1.5}).then(canvas => {  
+                let imgData = canvas.toDataURL('image/png');
+                let img = document.createElement("IMG");
+                img.setAttribute("id", `preview${this.counter}`);
+                img.addEventListener("click", function showPageList(){
+                    hideAllPages();
+                    showPage(pageCounter);
+                });
+                img.src = imgData;
+                //_(".page-menu-container").appendChild(img);
+                $(`#preview${this.counter}`).replaceWith(img);
+            }); 
+            */
+
+            /*
+            let copyImg = $(`#album-page-preview${this.counter} .image`);
+            let copyImgJs = _(`#album-page-preview${this.counter} .image`);
+            let curWidth = copyImg.outerWidth();
+            let curHeight = copyImg.height();
+            let curTransform = window.getComputedStyle(copyImgJs).getPropertyValue("transform").match(/(-?[0-9\.]+)/g);
+            console.log(curHeight);
+
+            copyImg.css({"transform": `translate(${curTransform[4]*0.15}px,${curTransform[5]*0.15}px)`});
+            if(curWidth > 100) copyImg.width(curWidth/5.5);
+            if(curHeight > 100) copyImg.height(curHeight/5.5);
+            */
+
+        }
+
         show(){
             $(`#album-page-nr${this.counter}`).show();
         }
@@ -89,6 +165,7 @@ $( document ).ready(function() {
 
         delete(){
             $(`#album-page-nr${this.counter}`).remove();
+            $(`#preview${this.counter}`).remove();
         }
 
         empty(){
@@ -104,13 +181,21 @@ $( document ).ready(function() {
         }
 
         addText(){
-            let textBox = `<textarea class="resize-drag page-text"> Text </textarea>`;
+            let textBox = `<textarea class="rotate page-text"> Text </textarea>`;
             $(`#album-page-nr${this.counter}`).append(textBox);   
+
+            $(".rotate").each(function() {
+                $(this).rotatable({
+                    wheelRotate:true, 
+                });
+                $(this).resizable();
+                $(this).draggable();
+            });
         }
 
         standardImage(width = `75%`, height = `70%`, top = `15%`, left = `12.5%`, right = ` `, bottom = ` `){
             //class resize-drag
-            const image = `<div class="image center rotate"
+            const image = `<div class="image center resize-drag"
                             style=" width:${width};
                                     height:${height};
                                     right:${right};
@@ -124,7 +209,7 @@ $( document ).ready(function() {
                                 <img src="#">
                             </div>`;
             //$('.rotate').rotatable();
-
+            /*
             $(".rotate").each(function() {
                 $(this).rotatable({
                     wheelRotate:true, 
@@ -132,6 +217,7 @@ $( document ).ready(function() {
                 $(this).resizable();
                 $(this).draggable();
             });
+            */
             $(`#album-page-nr${this.counter}`).append(image);    
         }
 
@@ -255,29 +341,7 @@ $( document ).ready(function() {
                                                                     "margin":"auto",
                                                                     })  
             _(".dark-layer").style.display = "none";
-            
             this.previewRefresh();
-        }
-
-        previewRefresh(){
-            console.log("da");
-            let page = _(`#album-page-nr${this.counter}`);
-            console.log(page);
-
-            let pageCounter = this.counter;
-            page.style.display = "block";
-            html2canvas(page, {scale: 1.5}).then(canvas => {  
-                let imgData = canvas.toDataURL('image/png');
-                let img = document.createElement("IMG");
-                img.setAttribute("id", `preview${this.counter}`);
-                img.addEventListener("click", function showPageList(){
-                    hideAllPages();
-                    showPage(pageCounter);
-                });
-                img.src = imgData;
-                //_(".page-menu-container").appendChild(img);
-                $(`#preview${this.counter}`).replaceWith(img);
-            }); 
         }
 
 
@@ -308,6 +372,12 @@ $( document ).ready(function() {
     /*******************************
         Functiile de la inceput
     *******************************/
+
+    _(".bg-change-btn input").addEventListener("click", function clickAddBackground(){
+        console.log("previewMerge");
+        //albumPage[selectedPage].previewRefresh();
+        setTimeout(function(){ albumPage[selectedPage].previewRefresh()}, 5000);
+    })
 
     let albumPage = new Array();
     function buildAlbum(){
@@ -354,6 +424,7 @@ $( document ).ready(function() {
     function selectPage(){
         deSelectPage();
         this.classList.add("album-page-selected");
+        albumPage[selectedPage].previewRefresh();
         if($(this).parent().hasClass("page-left")) selectedPage = currentPage;
         if($(this).parent().hasClass("page-right")) selectedPage = currentPage + 1;
         console.log(selectedPage);
@@ -376,6 +447,7 @@ $( document ).ready(function() {
     *******************************/
 
     function prevPage(){
+
         for(i=0;i<pagesCounter;i++){
             albumPage[i].hide();
         }
@@ -420,6 +492,8 @@ $( document ).ready(function() {
         albumPage.push(new page(pagesCounter+1,`right`));
         albumPage[pagesCounter].build();
         albumPage[pagesCounter+1].build();
+        albumPage[pagesCounter].pageList();
+        albumPage[pagesCounter+1].pageList();
 
         currentPage = pagesCounter;
         pagesCounter = pagesCounter+2;
@@ -471,56 +545,48 @@ $( document ).ready(function() {
     layout[0].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout0(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";
-        albumPage[selectPage].previewRefresh();        
+        _(".dark-layer").style.display = "none";      
     });
 
     layout[1].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout1(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";   
-        albumPage[selectPage].previewRefresh();        
+        _(".dark-layer").style.display = "none";         
     });
 
     layout[2].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout2(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";  
-        albumPage[selectPage].previewRefresh();         
+        _(".dark-layer").style.display = "none";         
     });
 
     layout[3].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout3(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";   
-        albumPage[selectPage].previewRefresh();        
+        _(".dark-layer").style.display = "none";         
     });
 
     layout[4].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout4(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none"; 
-        albumPage[selectPage].previewRefresh();          
+        _(".dark-layer").style.display = "none";        
     });
 
     layout[5].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout5(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";  
-        albumPage[selectPage].previewRefresh();         
+        _(".dark-layer").style.display = "none";         
     });
 
     layout[6].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout6(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";   
-        albumPage[selectPage].previewRefresh();        
+        _(".dark-layer").style.display = "none";         
     });
     layout[7].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout7(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";  
-        albumPage[selectPage].previewRefresh();         
+        _(".dark-layer").style.display = "none";         
     });
     //Galerie Imagini: adaugare imagine pe pagina
 
@@ -537,23 +603,9 @@ $( document ).ready(function() {
         for(i=0;i<pagesCounter;i++){
             albumPage[i].changeBg("assets/img/teme/baby.jpg");
         }
-        /*
-        let image = document.querySelectorAll(".image");
-        for(i=0;i<image.length;i++){
-            image[i].style.borderColor = "lightgreen";
-        }
-        */
-
-        /*
-        let page = document.querySelectorAll(".album-page");
-        for(i=0;i<image.length;i++){
-            page[i].style.borderColor = "lightgreen";
-        }
-        */
         document.documentElement.style.setProperty('--album-page-border-color', 'lightgreen');
         document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
-        refreshAllPages()
     }
 
     function themeNature(){
@@ -564,7 +616,6 @@ $( document ).ready(function() {
         document.documentElement.style.setProperty('--album-page-border-color', 'green');
         document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
-        refreshAllPages()
     }
 
     function themeSky(){
@@ -575,7 +626,6 @@ $( document ).ready(function() {
         document.documentElement.style.setProperty('--album-page-border-color', '#264b66');
         document.documentElement.style.setProperty('--image-border-color', '#ffffff');
         _(".theme-gallery").style.display = "none";
-        refreshAllPages()
     }
 
     function themeOcean(){
@@ -586,7 +636,6 @@ $( document ).ready(function() {
         document.documentElement.style.setProperty('--album-page-border-color', '#007995');
         document.documentElement.style.setProperty('--image-border-color', '#007995');
         _(".theme-gallery").style.display = "none";
-        refreshAllPages()
     }
 
     _(".theme-baby").addEventListener("click", themeBaby);
@@ -631,7 +680,6 @@ $( document ).ready(function() {
         for(j=0;j<pagesCounter;j++){
             albumPage[j].changeBg(this.src);
         }
-        refreshAllPages()
     }//Functie: schimba fundalul paginilor
 
 
@@ -772,17 +820,19 @@ $( document ).ready(function() {
         Lista pagini stanga
     *******************************/
 
-    function showList(){
+
+
+    function showPreview(){
         for(i=0;i<pagesCounter;i++){
-           // albumPage[i].pageList();
             albumPage[i].pageList();
         }
         prevPage();
     }//Functie Afisare lista de pagini stanga
 
+
     let resBoxBtn = $$(".res-box-btn");
     for(i=0;i<resBoxBtn.length;i++){
-        $$(".res-box-btn")[i].addEventListener("click", showList);
+        $$(".res-box-btn")[i].addEventListener("click", showPreview);
     }//Afisare lista stanga
 
 
