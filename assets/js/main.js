@@ -49,7 +49,7 @@ $( document ).ready(function() {
             _(`#album-page-nr${this.counter}`).classList.add("album-page-selected");
         }
 
-        pageList(){
+        preview(){
 
             let copy = $(`#album-page-nr${this.counter}`).clone();
             copy.attr('id', `album-page-preview${this.counter}`);
@@ -57,6 +57,7 @@ $( document ).ready(function() {
             copy.removeClass("album-page");
             copy.removeClass("resize-container");
             copy.appendTo(".page-menu-container");
+            
 
             let pageCounter = this.counter;
             _(`#album-page-preview${this.counter}`).addEventListener("click", function previewAfisare() {
@@ -64,41 +65,6 @@ $( document ).ready(function() {
                 goToPage(pageCounter);
             });// Click pt Afisare pagina din preview
 
-
-            // let page = _(`#album-page-nr${this.counter}`);
-            //let pageCounter = this.counter;
-            //page.style.display = "block";
-
-            /*
-            html2canvas(page, {scale: 1.5}).then(canvas => {  
-                let imgData = canvas.toDataURL('image/png');
-                let img = document.createElement("IMG");
-                img.setAttribute("id", `preview${this.counter}`);
-                img.setAttribute("class", `previewImg`);
-                //img.id = `#album-page-nr${this.counter}_prev`;
-
-                img.addEventListener("click", function showPageList(){
-                    hideAllPages();
-                    showPage(pageCounter);
-                    albumPage[pageCounter+1].show();
-                });
-                    img.src = imgData;
-                    //_(".page-menu-container").appendChild(img);
-                    $(".page-menu-container").append(img);
-            }); 
-            */
-
-
-           /*
-           let pageCopy = page.clone(true);
-           pageCopy.prop('id', `preview-image${this.counter}`);
-           pageCopy.removeClass("album-page");
-           pageCopy.addClass("page-menu-container-image");
-           pageCopy.width(50);
-           
-           $(".page-menu-container").append(pageCopy);
-
-           */
         }
 
         previewRefresh(){
@@ -132,40 +98,6 @@ $( document ).ready(function() {
                 goToPage(pageCounter);
             });// Click pt Afisare pagina din preview
 
-
-
-            /*
-            console.log("da");
-            let page = _(`#album-page-nr${this.counter}`);
-
-            let pageCounter = this.counter;
-            page.style.display = "block";
-            html2canvas(page, {scale: 1.5}).then(canvas => {  
-                let imgData = canvas.toDataURL('image/png');
-                let img = document.createElement("IMG");
-                img.setAttribute("id", `preview${this.counter}`);
-                img.addEventListener("click", function showPageList(){
-                    hideAllPages();
-                    showPage(pageCounter);
-                });
-                img.src = imgData;
-                //_(".page-menu-container").appendChild(img);
-                $(`#preview${this.counter}`).replaceWith(img);
-            }); 
-            */
-
-            /*
-            let copyImg = $(`#album-page-preview${this.counter} .image`);
-            let copyImgJs = _(`#album-page-preview${this.counter} .image`);
-            let curWidth = copyImg.outerWidth();
-            let curHeight = copyImg.height();
-            let curTransform = window.getComputedStyle(copyImgJs).getPropertyValue("transform").match(/(-?[0-9\.]+)/g);
-            console.log(curHeight);
-
-            copyImg.css({"transform": `translate(${curTransform[4]*0.15}px,${curTransform[5]*0.15}px)`});
-            if(curWidth > 100) copyImg.width(curWidth/5.5);
-            if(curHeight > 100) copyImg.height(curHeight/5.5);
-            */
 
         }
 
@@ -254,7 +186,7 @@ $( document ).ready(function() {
         }
 
         addElement(photo){
-            const image = `<div class="image resize-drag center element">	
+            const image = `<div class="image resize-drag center element" width="100px" height="100px">	
                                 <div class="image-delete" onclick="deleteParent(this)"> </div>	
                                 <div class="image-upload"> </div>	
                                 <input type="file" onchange="changeImage(this)" accept="image/*">
@@ -533,8 +465,8 @@ $( document ).ready(function() {
         albumPage.push(new page(pagesCounter+1,`right`));
         albumPage[pagesCounter].build();
         albumPage[pagesCounter+1].build();
-        albumPage[pagesCounter].pageList();
-        albumPage[pagesCounter+1].pageList();
+        albumPage[pagesCounter].preview();
+        albumPage[pagesCounter+1].preview();
 
         currentPage = pagesCounter;
         pagesCounter = pagesCounter+2;
@@ -641,42 +573,58 @@ $( document ).ready(function() {
 
     function themeBaby(){
         currentBg = "assets/img/teme/baby.jpg";
-        for(i=0;i<pagesCounter;i++){
-            albumPage[i].changeBg("assets/img/teme/baby.jpg");
-        }
         document.documentElement.style.setProperty('--album-page-border-color', 'lightgreen');
         document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/baby.jpg"); 
+            }, 100);
+        }
     }
 
     function themeNature(){
         currentBg = "assets/img/teme/nature.jpg";
-        for(i=0;i<pagesCounter;i++){
-            albumPage[i].changeBg("assets/img/teme/nature.jpg");
-        }
         document.documentElement.style.setProperty('--album-page-border-color', 'green');
         document.documentElement.style.setProperty('--image-border-color', 'lightgreen');
         _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/nature.jpg"); 
+            }, 100);
+        }
     }
 
     function themeSky(){
         currentBg = "assets/img/teme/sky.jpg";
-        for(i=0;i<pagesCounter;i++){
-            albumPage[i].changeBg("assets/img/teme/sky.jpg");
-        }
         document.documentElement.style.setProperty('--album-page-border-color', '#264b66');
         document.documentElement.style.setProperty('--image-border-color', '#ffffff');
         _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/sky.jpg"); 
+            }, 100);
+        }
     }
 
     function themeOcean(){
         currentBg = "assets/img/teme/ocean.jpg";
-        for(i=0;i<pagesCounter;i++){
-            albumPage[i].changeBg("assets/img/teme/ocean.jpg");
-        }
         document.documentElement.style.setProperty('--album-page-border-color', '#007995');
         document.documentElement.style.setProperty('--image-border-color', '#007995');
         _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/ocean.jpg"); 
+            }, 100);
+        }
     }
 
     _(".theme-baby").addEventListener("click", themeBaby);
@@ -865,7 +813,7 @@ $( document ).ready(function() {
 
     function showPreview(){
         for(i=0;i<pagesCounter;i++){
-            albumPage[i].pageList();
+            albumPage[i].preview();
         }
         prevPage();
     }//Functie Afisare lista de pagini stanga
