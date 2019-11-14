@@ -44,6 +44,8 @@ $( document ).ready(function() {
         }
 
         selectPage(){
+            albumPage[selectedPage].previewRefresh();
+            selectedPage = this.counter;
             _(`#album-page-nr${this.counter}`).classList.add("album-page-selected");
         }
 
@@ -55,6 +57,12 @@ $( document ).ready(function() {
             copy.removeClass("album-page");
             copy.removeClass("resize-container");
             copy.appendTo(".page-menu-container");
+
+            let pageCounter = this.counter;
+            _(`#album-page-preview${this.counter}`).addEventListener("click", function previewAfisare() {
+                console.log(`${pageCounter}`);
+                goToPage(pageCounter);
+            });// Click pt Afisare pagina din preview
 
 
             // let page = _(`#album-page-nr${this.counter}`);
@@ -107,6 +115,7 @@ $( document ).ready(function() {
             let copyImgJs = $$(`#album-page-preview${this.counter} .image`);
 
             for(i=0;i<copyImgJs.length;i++){
+                copyImg.removeClass("resize-drag");
                 let curWidth = copyImg.eq(i).outerWidth();
                 let curHeight = copyImg.eq(i).height();
                 let curTransform = window.getComputedStyle(copyImgJs[i]).getPropertyValue("transform").match(/(-?[0-9\.]+)/g);
@@ -117,6 +126,11 @@ $( document ).ready(function() {
                 if(curHeight > 100) copyImg.eq(i).height(curHeight/5.5);
             }
 
+            let pageCounter = this.counter;
+            _(`#album-page-preview${this.counter}`).addEventListener("click", function previewAfisare() {
+                console.log(`${pageCounter}`);
+                goToPage(pageCounter);
+            });// Click pt Afisare pagina din preview
 
 
 
@@ -451,6 +465,7 @@ $( document ).ready(function() {
         for(i=0;i<pagesCounter;i++){
             albumPage[i].hide();
         }
+        
         currentPage = currentPage-2;
         if(currentPage < 0) currentPage=0;
         console.log(currentPage);
@@ -461,6 +476,9 @@ $( document ).ready(function() {
         _(".pg-nr-right").innerHTML = `${currentPage+2}`;
 
         selectPageNav();
+        albumPage[currentPage].previewRefresh();
+        albumPage[currentPage+2].previewRefresh();
+        albumPage[currentPage+3].previewRefresh();
     }
     _(".prev").addEventListener("click", prevPage);//Pagina anterioara
 
@@ -469,6 +487,7 @@ $( document ).ready(function() {
         for(i=0;i<pagesCounter;i++){
             albumPage[i].hide();
         }
+
         currentPage = currentPage+2;
         if(currentPage >= pagesCounter) currentPage=pagesCounter-2;
         console.log(pagesCounter);
@@ -479,9 +498,31 @@ $( document ).ready(function() {
         _(".pg-nr-right").innerHTML = `${currentPage+2}`;
 
         selectPageNav();
+        albumPage[currentPage].previewRefresh();
+        albumPage[currentPage-1].previewRefresh();
+        albumPage[currentPage-2].previewRefresh();
     }
     _(".next").addEventListener("click", nextPage);//Urmatoarea Pagina
 
+    function goToPage(pageCounter){
+        for(i=0;i<pagesCounter;i++){
+            albumPage[i].hide();
+        }
+        deSelectPage();
+        let clickedPage = pageCounter;
+
+        if(pageCounter%2 == 1) pageCounter--;
+  
+
+        currentPage = pageCounter;
+        albumPage[currentPage].show();
+        albumPage[currentPage+1].show();
+        albumPage[clickedPage].selectPage();
+        albumPage[clickedPage].previewRefresh();
+
+        _(".pg-nr-left").innerHTML = `${currentPage+1}`;
+        _(".pg-nr-right").innerHTML = `${currentPage+2}`;
+    }
 
     /*******************************
         Adaugare/Stergere Pagini

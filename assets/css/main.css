@@ -290,11 +290,11 @@ footer{
 	background-color:var(--bg-color-main);
 
 	flex-grow: 1;
+	justify-content:center;
 }
 
 .page-menu-container{
 	overflow-Y:scroll;
-	padding-left:20px;
 
 	/*
 	display:grid;
@@ -468,13 +468,18 @@ footer{
 
 
 
+/**********************************
+	Album Preview
+**********************************/
+
+
 
 
 
 .album-page-preview{
 	display:block !important;
 	position:relative;
-	width:85px;
+	width:40%;
 	height:85px;
 	margin:15px 0px;
 	border:1px solid white;
