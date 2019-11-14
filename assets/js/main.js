@@ -56,7 +56,12 @@ $( document ).ready(function() {
             copy.addClass("album-page-preview");
             copy.removeClass("album-page");
             copy.removeClass("resize-container");
-            copy.appendTo(".page-menu-container");
+
+            let previewBox = $('<div class="preview-box"></div>');
+            previewBox.append(copy);
+            previewBox.append("<p class='preview-pg'> 1 </p>")                
+
+            previewBox.appendTo(".page-menu-container");
             
 
             let pageCounter = this.counter;
@@ -314,6 +319,16 @@ $( document ).ready(function() {
         }
     }
 
+    function previewNr(){
+        let pg = $$(".preview-pg");
+
+        pg[0].innerHTML = `Coperta fata`;
+        pg[1].innerHTML = `Coperta spate`;
+        for(i=2;i<pagesCounter;i++){
+            pg[i].innerHTML = `${i-1}`;
+        }
+    }
+
 
     /*******************************
         Functiile de la inceput
@@ -323,6 +338,7 @@ $( document ).ready(function() {
         console.log("previewMerge");
         //albumPage[selectedPage].previewRefresh();
         setTimeout(function(){ albumPage[selectedPage].previewRefresh()}, 5000);
+        previewNr();
     })
 
     let albumPage = new Array();
@@ -337,7 +353,7 @@ $( document ).ready(function() {
             albumPage[i].build();
 
             pagesCounter++;
-            _(".pagesCounter").innerHTML = pagesCounter;
+            _(".pagesCounter").innerHTML = pagesCounter-2;
         }
     }//Construire Album ( cand porneste programul )
     buildAlbum();
@@ -816,6 +832,7 @@ $( document ).ready(function() {
             albumPage[i].preview();
         }
         prevPage();
+        previewNr();
     }//Functie Afisare lista de pagini stanga
 
 
