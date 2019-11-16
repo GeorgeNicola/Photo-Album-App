@@ -50,17 +50,20 @@ $( document ).ready(function() {
         }
 
         preview(){
+            let counter = this.counter;
 
             let copy = $(`#album-page-nr${this.counter}`).clone();
             copy.attr('id', `album-page-preview${this.counter}`);
             copy.addClass("album-page-preview");
+            //if(counter%2==0) copy.addClass("margin-left");
             copy.removeClass("album-page");
             copy.removeClass("resize-container");
 
-            let previewBox = $('<div class="preview-box"></div>');
+            let previewBox = $(`<div class="preview-box" id="preview-box${this.counter}">`);
             previewBox.append(copy);
-            previewBox.append("<p class='preview-pg'> 1 </p>")                
+            previewBox.append("<p class='preview-pg'> 1 </p>")      
 
+            if((this.counter)%2 == 0) copy.addClass("preview-margin-left");
             previewBox.appendTo(".page-menu-container");
             
 
@@ -78,23 +81,35 @@ $( document ).ready(function() {
             let copy = $(`#album-page-nr${this.counter}`).clone();
             copy.attr('id', `album-page-preview${this.counter}`);
             copy.addClass("album-page-preview");
+            if((this.counter)%2 == 0) copy.addClass("preview-margin-left");
             copy.removeClass("album-page");
             $(`#album-page-preview${this.counter}`).replaceWith(copy);
 
 
             let copyImg = $(`#album-page-preview${this.counter} .image`);
-            let copyImgJs = $$(`#album-page-preview${this.counter} .image`);
+            let copyImgJs = $$(`#album-page-preview${this.counter} .image`); //Pt selectare pag
+
 
             for(i=0;i<copyImgJs.length;i++){
                 copyImg.removeClass("resize-drag");
                 let curWidth = copyImg.eq(i).outerWidth();
-                let curHeight = copyImg.eq(i).height();
-                let curTransform = window.getComputedStyle(copyImgJs[i]).getPropertyValue("transform").match(/(-?[0-9\.]+)/g);
+                let curHeight = copyImg.eq(i).innerHeight();
                 console.log(curHeight);
+                let curTransform = window.getComputedStyle(copyImgJs[i]).getPropertyValue("transform").match(/(-?[0-9\.]+)/g);
 
                 if(curTransform != null ) copyImg.eq(i).css({"transform": `translate(${curTransform[4]*0.15}px,${curTransform[5]*0.15}px)`});
-                if(curWidth > 100) copyImg.eq(i).width(curWidth/5.5);
-                if(curHeight > 100) copyImg.eq(i).height(curHeight/5.5);
+                //if(curHeight > 100) copyImg.eq(i).height(curHeight/5.5);
+
+
+                if(getComputedStyle(document.documentElement).getPropertyValue('--preview-height') == "150px"){
+                    if(curWidth > 100) copyImg.eq(i).width(curWidth/4);
+                    if(curHeight > 105) copyImg.eq(i).height(curHeight/3.75);
+                } 
+    
+                else{
+                    if(curWidth > 100) copyImg.eq(i).width(curWidth/5.5);
+                    if(curHeight > 100) copyImg.eq(i).height(curHeight/5.5);
+                }
             }
 
             let pageCounter = this.counter;
@@ -117,6 +132,7 @@ $( document ).ready(function() {
         delete(){
             $(`#album-page-nr${this.counter}`).remove();
             $(`#preview${this.counter}`).remove();
+            $(`#preview-box${this.counter}`).remove();
         }
 
         empty(){
@@ -132,16 +148,8 @@ $( document ).ready(function() {
         }
 
         addText(){
-            let textBox = `<textarea class="rotate page-text"> Text </textarea>`;
+            let textBox = `<textarea class="resize-drag page-text"> Text </textarea>`;
             $(`#album-page-nr${this.counter}`).append(textBox);   
-
-            $(".rotate").each(function() {
-                $(this).rotatable({
-                    wheelRotate:true, 
-                });
-                $(this).resizable();
-                $(this).draggable();
-            });
         }
 
         standardImage(width = `75%`, height = `70%`, top = `15%`, left = `12.5%`, right = ` `, bottom = ` `){
@@ -193,8 +201,6 @@ $( document ).ready(function() {
         addElement(photo){
             const image = `<div class="image resize-drag center element" width="100px" height="100px">	
                                 <div class="image-delete" onclick="deleteParent(this)"> </div>	
-                                <div class="image-upload"> </div>	
-                                <input type="file" onchange="changeImage(this)" accept="image/*">
                                 <img src="${photo.src}" style="display:block;">
                             </div>`;                
             $(`#album-page-nr${this.counter}`).append(image);
@@ -491,6 +497,7 @@ $( document ).ready(function() {
         _(".pg-nr-right").innerHTML = `${currentPage+2}`;
 
         selectPageNav();
+        previewNr();
     }//Functie adaugare 2 Pagini
 
     function delPages(){
@@ -512,6 +519,7 @@ $( document ).ready(function() {
         _(".pg-nr-right").innerHTML = `${currentPage+2}`;
 
         selectPageNav();
+        previewNr();
     }//Functie stergere 2 Pagini
 
     _(".add-page-btn").addEventListener("click", newPages);//Btn Adaugare 2 Pagini
@@ -534,48 +542,56 @@ $( document ).ready(function() {
     layout[0].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout0(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";      
+        _(".dark-layer").style.display = "none";    
+        albumPage[selectedPage].previewRefresh();       
     });
 
     layout[1].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout1(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";         
+        _(".dark-layer").style.display = "none";    
+        albumPage[selectedPage].previewRefresh();           
     });
 
     layout[2].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout2(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";         
+        _(".dark-layer").style.display = "none";     
+        albumPage[selectedPage].previewRefresh();       
     });
 
     layout[3].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout3(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";         
+        _(".dark-layer").style.display = "none";   
+        albumPage[selectedPage].previewRefresh();            
     });
 
     layout[4].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout4(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";        
+        _(".dark-layer").style.display = "none";   
+        albumPage[selectedPage].previewRefresh();          
     });
 
     layout[5].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout5(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";         
+        _(".dark-layer").style.display = "none";     
+        albumPage[selectedPage].previewRefresh();          
     });
 
     layout[6].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout6(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";         
+        _(".dark-layer").style.display = "none";    
+        albumPage[selectedPage].previewRefresh();       
     });
     layout[7].addEventListener("click", function(){ 
         albumPage[selectedPage].imagesLayout7(); 
         _(".layout-gallery").style.display = 'none';
-        _(".dark-layer").style.display = "none";         
+        _(".dark-layer").style.display = "none";    
+        albumPage[selectedPage].previewRefresh();       
     });
     //Galerie Imagini: adaugare imagine pe pagina
 

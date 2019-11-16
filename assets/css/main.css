@@ -21,6 +21,8 @@ body{
 
 	--flip-page-width: 750px;
 	--flip-page-height: 750px;
+
+	--preview-height:100px;
 }
 
 /* 
@@ -482,6 +484,10 @@ footer{
 }
 
 
+.preview-margin-left{
+	margin-left:auto;
+}
+
 
 .preview-pg{
 	margin:5px 0;
@@ -493,8 +499,9 @@ footer{
 .album-page-preview{
 	display:block !important;
 	position:relative;
-	width:100%;
+	width:100px;
 	height:100px;
+	height:var(--preview-height);
 	border:1px solid white;
 	border-color:var(--album-page-border-color);
 	box-sizing:border-box;
@@ -599,6 +606,19 @@ footer{
 	cursor:pointer;
 
 	transition: all 0.5s;
+}
+
+.galllery-box{
+	display:flex;
+	text-align:center;
+	justify-content:center;
+}
+
+.gallery-box p{
+	margin:0 auto;
+	color:var(--text-color-main);
+	font-size:0.75em;
+	text-align:center;
 }
 
 .gallery-container img:hover{

@@ -33,6 +33,7 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `355px`);
         document.documentElement.style.setProperty('--album-page-height', `500px`);
+        document.documentElement.style.setProperty('--preview-height', `150px`);
 
         $(".flipbook").turn("size", 710, `${1000/2}`);
 
@@ -55,6 +56,7 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `500px`);
         document.documentElement.style.setProperty('--album-page-height', `355px`);
+        document.documentElement.style.setProperty('--preview-height', `66.66px`);
 
         $(".flipbook").turn("size", 1000, `${710/2}`);
 
@@ -77,6 +79,7 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `450px`);
         document.documentElement.style.setProperty('--album-page-height', `450px`);
+        document.documentElement.style.setProperty('--preview-height', `100px`);
 
         $(".flipbook").turn("size", 800, `${800/2}`);
 
@@ -99,6 +102,7 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `500px`);
         document.documentElement.style.setProperty('--album-page-height', `355px`);
+        document.documentElement.style.setProperty('--preview-height', `66.66px`);
 
         $(".flipbook").turn("size", 1000, `${710/2}`);
 
@@ -121,6 +125,7 @@ function changeResolution(dimension){
 
         document.documentElement.style.setProperty('--album-page-width', `450px`);
         document.documentElement.style.setProperty('--album-page-height', `450px`);
+        document.documentElement.style.setProperty('--preview-height', `100px`);
 
         $(".flipbook").turn("size", 800, `${800/2}`);
 
