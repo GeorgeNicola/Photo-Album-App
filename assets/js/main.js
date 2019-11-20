@@ -69,7 +69,7 @@ $( document ).ready(function() {
 
             let pageCounter = this.counter;
             _(`#album-page-preview${this.counter}`).addEventListener("click", function previewAfisare() {
-                console.log(`${pageCounter}`);
+                //console.log(`${pageCounter}`);
                 goToPage(pageCounter);
             });// Click pt Afisare pagina din preview
 
@@ -87,14 +87,16 @@ $( document ).ready(function() {
 
 
             let copyImg = $(`#album-page-preview${this.counter} .image`);
+            let copyInput = $(`#album-page-preview${this.counter} .image input`);
             let copyImgJs = $$(`#album-page-preview${this.counter} .image`); //Pt selectare pag
 
 
             for(i=0;i<copyImgJs.length;i++){
+                copyInput.remove();
                 copyImg.removeClass("resize-drag");
                 let curWidth = copyImg.eq(i).outerWidth();
                 let curHeight = copyImg.eq(i).innerHeight();
-                console.log(curHeight);
+                //console.log(curHeight);
                 let curTransform = window.getComputedStyle(copyImgJs[i]).getPropertyValue("transform").match(/(-?[0-9\.]+)/g);
 
                 if(curTransform != null ) copyImg.eq(i).css({"transform": `translate(${curTransform[4]*0.15}px,${curTransform[5]*0.15}px)`});
@@ -142,13 +144,13 @@ $( document ).ready(function() {
             }
 
             let image2 = $$(`#album-page-nr${this.counter} .resize-drag`);
-            for(i=0;i<image.length;i++){
+            for(i=0;i<image2.length;i++){
                 image2[i].remove();
             }
         }
 
         addText(){
-            let textBox = `<textarea class="resize-drag page-text"> Text </textarea>`;
+            let textBox = `<textarea class="resize-drag page-text" style="z-index:3;"> Text </textarea>`;
             $(`#album-page-nr${this.counter}`).append(textBox);   
         }
 
@@ -509,7 +511,7 @@ $( document ).ready(function() {
         if(currentPage == 0) currentPage = 0;
         else currentPage -= 2;
 
-        pagesCounter -= 2;
+        pagesCounter = pagesCounter-2;
         albumPage[currentPage].show();
         albumPage[currentPage+1].show();
         //TO DO: if's pentru fiecare situatie
@@ -663,6 +665,161 @@ $( document ).ready(function() {
     _(".theme-nature").addEventListener("click", themeNature);
     _(".theme-sky").addEventListener("click", themeSky);
     _(".theme-ocean").addEventListener("click", themeOcean);
+
+
+
+    function themeAutumn1(){
+        currentBg = "assets/img/teme/autumn1.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#8f5f17');
+        document.documentElement.style.setProperty('--image-border-color', '#e48f3f');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/autumn1.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-autumn1").addEventListener("click", themeAutumn1);
+
+
+    function themeAutumn2(){
+        currentBg = "assets/img/teme/autumn2.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#8f5f17');
+        document.documentElement.style.setProperty('--image-border-color', '#e48f3f');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/autumn2.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-autumn2").addEventListener("click", themeAutumn2);
+
+    function themeChristmas1(){
+        currentBg = "assets/img/teme/christmas1.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#444152');
+        document.documentElement.style.setProperty('--image-border-color', '#546e51');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/christmas1.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-christmas1").addEventListener("click", themeChristmas1);
+
+    function themeChristmas2(){
+        currentBg = "assets/img/teme/christmas2.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#350b00');
+        document.documentElement.style.setProperty('--image-border-color', '#e72d3b');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/christmas2.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-christmas2").addEventListener("click", themeChristmas2);
+
+    function themeChristmas3(){
+        currentBg = "assets/img/teme/christmas3.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#f5ece3');
+        document.documentElement.style.setProperty('--image-border-color', '#fc0112');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/christmas3.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-christmas3").addEventListener("click", themeChristmas3);
+
+    function themeChristmas4(){
+        currentBg = "assets/img/teme/christmas4.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#0072bb');
+        document.documentElement.style.setProperty('--image-border-color', '#ff4153');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/christmas4.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-christmas4").addEventListener("click", themeChristmas4);
+
+    function themePhoto(){
+        currentBg = "assets/img/teme/photo.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#232426');
+        document.documentElement.style.setProperty('--image-border-color', '#87ae43');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/photo.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-photo").addEventListener("click", themePhoto);
+
+    function themeLemon(){
+        currentBg = "assets/img/teme/lemon.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#fec91b');
+        document.documentElement.style.setProperty('--image-border-color', '#f89b00');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/lemon.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-lemon").addEventListener("click", themeLemon);
+
+    function themeCyan(){
+        currentBg = "assets/img/teme/cyan.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#3d8baf');
+        document.documentElement.style.setProperty('--image-border-color', '#3886ad');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/cyan.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-cyan").addEventListener("click", themeCyan);
+    
+    function themeViola(){
+        currentBg = "assets/img/teme/viola.jpg";
+        document.documentElement.style.setProperty('--album-page-border-color', '#5379c4');
+        document.documentElement.style.setProperty('--image-border-color', '#87afd2');
+        _(".theme-gallery").style.display = "none";
+
+        for(i=0;i<pagesCounter;i++){
+            let k=i;
+            setTimeout(function(){ 
+                albumPage[k].changeBg("assets/img/teme/viola.jpg"); 
+            }, 100);
+        }
+    }
+    _(".theme-viola").addEventListener("click", themeViola);
+
+
 
 
 
@@ -906,7 +1063,7 @@ $( document ).ready(function() {
         for(i=0;i<pagesCounter;i++){
             flipbookPage[i].style.display ="block";
             let k=i;//Bug Fix
-            html2canvas(flipbookPage[i]).then(canvas => {
+            html2canvas(flipbookPage[i],{scale: 1.5}).then(canvas => {
                 imgData = canvas.toDataURL('image/png');
                 page = $("<div />", {"class": `p${k+1}`}).html(`<img src="${imgData}">`);
                 $(".flipbook").turn("addPage", page);
