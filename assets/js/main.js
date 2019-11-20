@@ -150,7 +150,10 @@ $( document ).ready(function() {
         }
 
         addText(){
-            let textBox = `<textarea class="resize-drag page-text" style="z-index:3;"> Text </textarea>`;
+            let textBox = `<div class="text-box resize-drag">
+                                <div class="image-delete" onclick="deleteParent(this)"> </div>
+                                <textarea class="page-text">Text</textarea>
+                            </div>`;
             $(`#album-page-nr${this.counter}`).append(textBox);   
         }
 
@@ -169,16 +172,6 @@ $( document ).ready(function() {
                                 <input type="file" onchange="changeImage(this)" accept="image/*">
                                 <img src="#">
                             </div>`;
-            //$('.rotate').rotatable();
-            /*
-            $(".rotate").each(function() {
-                $(this).rotatable({
-                    wheelRotate:true, 
-                });
-                $(this).resizable();
-                $(this).draggable();
-            });
-            */
             $(`#album-page-nr${this.counter}`).append(image);    
         }
 
@@ -363,6 +356,7 @@ $( document ).ready(function() {
             pagesCounter++;
             _(".pagesCounter").innerHTML = pagesCounter-2;
         }
+        themeAutumn2(); //Tema Default
     }//Construire Album ( cand porneste programul )
     buildAlbum();
     for(i=0;i<albumPage.length;i++){

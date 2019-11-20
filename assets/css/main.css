@@ -1047,19 +1047,30 @@ footer{
 	Page Text
 *************************/
 
-.page-text{
+.text-box{
 	position:absolute;
 	left:0;
 	top:0;
-	z-index:1;
+	z-index:3;
+	text-align:center;
+	cursor:all-scroll;
+}
+
+.text-box .image-delete{
+	position:absolute;
+	right:2.5px;
+	top:2.5px;
+	z-index:4 !important;
+}
+
+.page-text{
+	width:100%;
+	height:100%;
 	background:none;
+	text-decoration: none;
 	border: none;
 	outline:none;
 	resize: none !important;
-
-	height:25px;
-	padding-top:20px;
-
 	text-align:center;
 	font-size:1.25em;
 	font-family:arial;
