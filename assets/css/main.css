@@ -23,6 +23,7 @@ body{
 	--flip-page-height: 750px;
 
 	--preview-height:100px;
+	--preview-width:80px;
 }
 
 /* 
@@ -477,7 +478,7 @@ footer{
 
 
 .preview-box{
-	width:50%;
+	width:45%;
 	justify-content:center;
 	text-align:center;
 	cursor:pointer;
@@ -499,9 +500,10 @@ footer{
 .album-page-preview{
 	display:block !important;
 	position:relative;
-	width:100px;
-	height:100px;
+	width:80px;
+	height:80px;
 	height:var(--preview-height);
+	width:var(--preview-width);
 	border:1px solid white;
 	border-color:var(--album-page-border-color);
 	box-sizing:border-box;

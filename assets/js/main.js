@@ -69,8 +69,8 @@ $( document ).ready(function() {
 
             let pageCounter = this.counter;
             _(`#album-page-preview${this.counter}`).addEventListener("click", function previewAfisare() {
-                //console.log(`${pageCounter}`);
-                goToPage(pageCounter);
+                console.log(`${pageCounter}`);
+                    goToPage(pageCounter);
             });// Click pt Afisare pagina din preview
 
         }
@@ -117,7 +117,7 @@ $( document ).ready(function() {
             let pageCounter = this.counter;
             _(`#album-page-preview${this.counter}`).addEventListener("click", function previewAfisare() {
                 console.log(`${pageCounter}`);
-                goToPage(pageCounter);
+                    goToPage(pageCounter);
             });// Click pt Afisare pagina din preview
 
 

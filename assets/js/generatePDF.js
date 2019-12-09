@@ -31,14 +31,30 @@ function changeResolution(dimension){
         //CSS width: 355px;
         //CSS height: 500px;
 
-        document.documentElement.style.setProperty('--album-page-width', `355px`);
-        document.documentElement.style.setProperty('--album-page-height', `500px`);
-        document.documentElement.style.setProperty('--preview-height', `150px`);
+        let windowWidth = document.documentElement.clientWidth;
+        if(windowWidth < 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `355px`);
+            document.documentElement.style.setProperty('--album-page-height', `500px`);
+            document.documentElement.style.setProperty('--preview-height', `120px`);
+        }
+        if(windowWidth > 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `532.5px`);
+            document.documentElement.style.setProperty('--album-page-height', `750px`);
+            document.documentElement.style.setProperty('--preview-height', `150px`);
+            document.documentElement.style.setProperty('--preview-width', `112px`);
+        }
 
         $(".flipbook").turn("size", 710, `${1000/2}`);
 
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
+
+
+        //Eliminare Teme
+        _(".theme-christmas1").parentNode.style.display = "none";
+        _(".theme-autumn1").parentNode.style.display = "none";
+        _(".theme-photo").parentNode.style.display = "none";
+        _(".theme-lemon").parentNode.style.display = "none";
     }
 
     if(dimension == `a4panoramic`){
@@ -54,9 +70,19 @@ function changeResolution(dimension){
         document.querySelectorAll(".landscape div")[0].style.width = "2em";
         document.querySelectorAll(".landscape div")[1].style.width = "2em";
 
-        document.documentElement.style.setProperty('--album-page-width', `500px`);
-        document.documentElement.style.setProperty('--album-page-height', `355px`);
-        document.documentElement.style.setProperty('--preview-height', `66.66px`);
+        let windowWidth = document.documentElement.clientWidth;
+        if(windowWidth < 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `500px`);
+            document.documentElement.style.setProperty('--album-page-height', `355px`);
+            document.documentElement.style.setProperty('--preview-height', `53.3px`);
+        }
+        if(windowWidth > 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `750px`);
+            document.documentElement.style.setProperty('--album-page-height', `532.5px`);
+            document.documentElement.style.setProperty('--preview-height', `85px`);
+            document.documentElement.style.setProperty('--preview-width', `120px`);
+        }
+
 
         $(".flipbook").turn("size", 1000, `${710/2}`);
 
@@ -77,14 +103,28 @@ function changeResolution(dimension){
         document.querySelectorAll(".landscape div")[0].style.width = "1.25em";
         document.querySelectorAll(".landscape div")[1].style.width = "1.25em";
 
-        document.documentElement.style.setProperty('--album-page-width', `450px`);
-        document.documentElement.style.setProperty('--album-page-height', `450px`);
-        document.documentElement.style.setProperty('--preview-height', `100px`);
+
+        let windowWidth = document.documentElement.clientWidth;
+        if(windowWidth < 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `450px`);
+            document.documentElement.style.setProperty('--album-page-height', `450px`);
+            document.documentElement.style.setProperty('--preview-height', `80px`);
+        }
+        if(windowWidth > 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `675px`);
+            document.documentElement.style.setProperty('--album-page-height', `675px`);
+            document.documentElement.style.setProperty('--preview-height', `120px`);
+            document.documentElement.style.setProperty('--preview-width', `120px`);
+        }
 
         $(".flipbook").turn("size", 800, `${800/2}`);
 
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
+
+
+
+        _(".theme-lemon").parentNode.style.display = "none";
     }
 
     if(dimension == `a5panoramic`){
@@ -100,9 +140,19 @@ function changeResolution(dimension){
         document.querySelectorAll(".landscape div")[0].style.width = "2em";
         document.querySelectorAll(".landscape div")[1].style.width = "2em";
 
-        document.documentElement.style.setProperty('--album-page-width', `500px`);
+
+        let windowWidth = document.documentElement.clientWidth;
+        if(windowWidth < 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `500px`);
         document.documentElement.style.setProperty('--album-page-height', `355px`);
-        document.documentElement.style.setProperty('--preview-height', `66.66px`);
+        document.documentElement.style.setProperty('--preview-height', `53.3px`);
+        }
+        if(windowWidth > 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `750px`);
+            document.documentElement.style.setProperty('--album-page-height', `532.5px`);
+            document.documentElement.style.setProperty('--preview-height', `85px`);
+            document.documentElement.style.setProperty('--preview-width', `120px`);
+        }
 
         $(".flipbook").turn("size", 1000, `${710/2}`);
 
@@ -123,14 +173,27 @@ function changeResolution(dimension){
         document.querySelectorAll(".landscape div")[0].style.width = "1.25em";
         document.querySelectorAll(".landscape div")[1].style.width = "1.25em";
 
-        document.documentElement.style.setProperty('--album-page-width', `450px`);
-        document.documentElement.style.setProperty('--album-page-height', `450px`);
-        document.documentElement.style.setProperty('--preview-height', `100px`);
+
+        let windowWidth = document.documentElement.clientWidth;
+        if(windowWidth < 1800 ){
+             document.documentElement.style.setProperty('--album-page-width', `450px`);
+            document.documentElement.style.setProperty('--album-page-height', `450px`);
+            document.documentElement.style.setProperty('--preview-height', `80px`);
+        }
+        if(windowWidth > 1800 ){
+            document.documentElement.style.setProperty('--album-page-width', `675px`);
+            document.documentElement.style.setProperty('--album-page-height', `675px`);
+            document.documentElement.style.setProperty('--preview-height', `120px`);
+            document.documentElement.style.setProperty('--preview-width', `120px`);
+        }
 
         $(".flipbook").turn("size", 800, `${800/2}`);
 
         _(".resolutions-container").style.display = `none`;
         _(".dark-layer").style.display = `none`;
+
+
+        _(".theme-lemon").parentNode.style.display = "none";
     }
 }//Alegerea formatului paginilor
 
