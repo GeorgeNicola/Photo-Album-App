@@ -88,7 +88,7 @@ $( document ).ready(function() {
 
             let copyImg = $(`#album-page-preview${this.counter} .image`);
             let copyInput = $(`#album-page-preview${this.counter} .image input`);
-            let copyImgJs = $$(`#album-page-preview${this.counter} .image`); //Pt selectare pag
+            let copyImgJs = $$(`#album-page-preview${this.counter} .image`); //Pt selectare pag-0
 
 
             for(i=0;i<copyImgJs.length;i++){
@@ -150,11 +150,25 @@ $( document ).ready(function() {
         }
 
         addText(){
+            
             let textBox = `<div class="text-box resize-drag">
                                 <div class="image-delete" onclick="deleteParent(this)"> </div>
                                 <textarea class="page-text">Text</textarea>
                             </div>`;
             $(`#album-page-nr${this.counter}`).append(textBox);   
+            
+
+            /*
+           let box = document.createElement("DIV");
+           box.classList.add("text-box");
+           box.classList.add("resize-drag");
+           let text = document.createElement("TEXTAREA");
+           text.classList.add("page-text");
+           text.innerHTML = "Text";
+
+           box.appendChild(text);
+           _(`#album-page-nr${this.counter}`).appendChild(box); 
+           */
         }
 
         standardImage(width = `75%`, height = `70%`, top = `15%`, left = `12.5%`, right = ` `, bottom = ` `){
@@ -176,7 +190,6 @@ $( document ).ready(function() {
         }
 
         imageSrc(photo){
-            let imgid = getRotateId();
             const image = `<div class="image center resize-drag"
                             style=" 
                                     position:absolute;
@@ -190,6 +203,30 @@ $( document ).ready(function() {
                                 <img src="${photo.src}" style="display:block;">
                             </div>`;
             $(`#album-page-nr${this.counter}`).append(image);
+            _(".dark-layer").style.display = "none";
+        }
+
+        imageSrcFromGallery(photo){
+            let images = $(`#album-page-nr${this.counter} .image img`);
+
+            let i=0;
+            let k=1;
+            while (i < images.length && k==1){
+                console.log(images.length);
+                if(images.eq(i).attr("src").length < 5) {
+                    images.eq(i).attr('src',`${photo.src}`); 
+                    images.eq(i).show();
+                    k=0;
+                } 
+                i++;
+            }
+
+            if(k==1) {
+                images.eq(0).attr('src',`${photo.src}`); 
+                images.eq(0).show();
+            }
+
+
             _(".dark-layer").style.display = "none";
         }
 
@@ -893,7 +930,7 @@ $( document ).ready(function() {
 
     function addPhotoToPage(){
         _(".photo-gallery").style.display = "none";
-            albumPage[selectedPage].imageSrc(this);
+            albumPage[selectedPage].imageSrcFromGallery(this);
             albumPage[selectedPage].previewRefresh();
     }//Functie: adauga poza din galerie
 
