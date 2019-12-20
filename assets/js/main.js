@@ -92,8 +92,9 @@ $( document ).ready(function() {
 
 
             for(i=0;i<copyImgJs.length;i++){
+                if(copyImg.eq().hasClass("text-box")) copyImg.remove();
                 copyInput.remove();
-                copyImg.removeClass("resize-drag");
+                copyImg.eq(i).removeClass("resize-drag");
                 let curWidth = copyImg.eq(i).outerWidth();
                 let curHeight = copyImg.eq(i).innerHeight();
                 //console.log(curHeight);
@@ -150,25 +151,100 @@ $( document ).ready(function() {
         }
 
         addText(){
-            
+            /*
             let textBox = `<div class="text-box resize-drag">
                                 <div class="image-delete" onclick="deleteParent(this)"> </div>
                                 <textarea class="page-text">Text</textarea>
                             </div>`;
             $(`#album-page-nr${this.counter}`).append(textBox);   
-            
+            */
+           
+            let box = document.createElement("DIV");
+            box.classList.add("text-box");
+            box.classList.add("resize-drag");
+            let text = document.createElement("TEXTAREA");
+            text.classList.add("page-text");
+            text.innerHTML = "Text";
+            let editorBox = document.createElement("DIV");
+            editorBox.classList.add("text-editor"); 
 
-            /*
-           let box = document.createElement("DIV");
-           box.classList.add("text-box");
-           box.classList.add("resize-drag");
-           let text = document.createElement("TEXTAREA");
-           text.classList.add("page-text");
-           text.innerHTML = "Text";
 
-           box.appendChild(text);
-           _(`#album-page-nr${this.counter}`).appendChild(box); 
-           */
+            var fontList = ["Arial","Courier Prime","Dancing Script","Inconsolata","Lato","Lilita One","Lobster","Pacifico","Roboto","Ubuntu"];
+            //Font
+            let fontFamily = document.createElement("SELECT");
+
+            for (let i = 0; i < fontList.length; i++) {
+                let option = document.createElement("option");
+                option.value = fontList[i];
+                option.text = fontList[i];
+                fontFamily.appendChild(option);
+            }
+
+            fontFamily.onchange = function font(){
+                console.log(fontFamily.value);
+                text.style.fontFamily = `${fontFamily.value}`;
+            }
+            editorBox.appendChild(fontFamily);
+
+
+            //Dimensiune
+            let fontSize = document.createElement("SELECT");
+            for (var j = 9; j < 30; j++) {
+                var option = document.createElement("option");
+                option.setAttribute("value", j+1);
+                option.innerHTML = j + 1;
+                fontSize.appendChild(option);
+            }
+            fontSize.onchange = function changeColor(){
+                text.style.fontSize = `${fontSize.value*1.6}px`;
+            }
+            editorBox.appendChild(fontSize);
+
+
+            //Culoare
+            let colorPicker = document.createElement("INPUT");
+            colorPicker.classList.add("input-color");
+            colorPicker.type = "color";
+            colorPicker.onchange = function changeColor(){
+                text.style.color = colorPicker.value;
+            }
+            editorBox.appendChild(colorPicker);
+
+
+            //Bold
+            let bold = document.createElement("div");
+            bold.innerHTML = "B";
+            bold.classList.add("edit-bold");
+            bold.onclick = function bold(){
+                text.classList.toggle("bold");
+            }
+            editorBox.appendChild(bold);
+
+
+            //Incline
+            let incline = document.createElement("div");
+            incline.innerHTML = "I";
+            incline.classList.add("edit-incline");
+            incline.onclick = function incline(){
+                text.classList.toggle("incline");
+            }
+            editorBox.appendChild(incline);
+
+            //Sterge
+            let del = document.createElement("IMG");
+            del.classList.add("edit-delete");
+            del.src = "assets/img/delete.png";
+            del.onclick = function delText(){
+                box.style.display = "none";
+            }
+            editorBox.appendChild(del);
+
+
+
+            box.appendChild(editorBox); 
+            box.appendChild(text);
+            _(`#album-page-nr${this.counter}`).appendChild(box); 
+
         }
 
         standardImage(width = `75%`, height = `70%`, top = `15%`, left = `12.5%`, right = ` `, bottom = ` `){
@@ -226,6 +302,8 @@ $( document ).ready(function() {
                 images.eq(0).show();
             }
 
+
+            if(images.length < 2) this.imageSrc(photo);
 
             _(".dark-layer").style.display = "none";
         }

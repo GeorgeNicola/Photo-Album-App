@@ -1051,12 +1051,23 @@ footer{
 
 .text-box{
 	position:absolute;
-	left:0;
-	top:0;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
 	z-index:3;
 	text-align:center;
 	cursor:all-scroll;
 	overflow:visible;
+	font-weight:bold;
+	font-family:"Roboto";
+}
+
+.bold{
+	font-weight:bold;
+}
+
+.incline{
+	font-style:italic;
 }
 
 .text-box .image-delete{
@@ -1065,6 +1076,67 @@ footer{
 	top:2.5px;
 	z-index:4 !important;
 }
+
+.text-box .text-editor{
+	width:280px;
+	height:30px;
+	background-color:var(--bg-color-third);
+	border: 2px solid var(--bg-color-main);
+	border-radius:5px;
+
+	position:absolute;
+	top:-35px;
+	left:0px;
+
+	display:none;
+	align-items:center;
+
+	transition: all 1s;
+}
+
+.text-box:hover .text-editor{
+	display:flex;
+}
+
+.text-editor *{
+	margin:0px 5px;
+	height:20px;
+}
+
+.edit-bold{
+	font-size:20px;
+	font-weight:bold;
+	color:white;
+}
+.edit-bold:hover{
+	cursor:pointer;
+}
+.edit-incline{
+	font-style:italic;
+	font-size:20px;
+	font-weight:bold;
+	color:white;
+}
+.edit-incline:hover{
+	cursor:pointer;
+}
+
+.edit-delete{
+	width:20px;
+	height:20px;
+}
+.edit-delete:hover{
+	cursor:pointer;
+}
+
+
+.text-editor .input-color{
+	width:20px;
+	height:20px;
+	border:none;
+	color:red;
+}
+
 
 .page-text{
 	width:100%;
