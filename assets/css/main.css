@@ -935,7 +935,7 @@ footer{
 
 	font-size:0.75em;
 
-	background-image:url("/assets/img/res-box.png");
+	background-image:url('../img/res-box.png');
 	background-size:cover;
 	background-repeat:no-repeat;
 }
@@ -952,7 +952,7 @@ footer{
 
 	font-size:0.75em;
 
-	background-image:url("/assets/img/res-box.png");
+	background-image:url('../img/res-box.png');
 	background-size:cover;
 	background-repeat:no-repeat;
 }
@@ -969,7 +969,7 @@ footer{
 
 	font-size:0.75em;
 
-	background-image:url("/assets/img/res-box.png");
+	background-image:url('../img/res-box.png');
 	background-size:cover;
 	background-repeat:no-repeat;
 }
@@ -986,7 +986,7 @@ footer{
 
 	font-size:0.75em;
 
-	background-image:url("/assets/img/res-box.png");
+	background-image:url('../img/res-box.png');
 	background-size:cover;
 	background-repeat:no-repeat;
 }
@@ -1003,7 +1003,7 @@ footer{
 
 	font-size:0.7em;
 
-	background-image:url("/assets/img/res-box.png");
+	background-image:url('../img/res-box.png');
 	background-size:cover;
 	background-repeat:no-repeat;
 }
