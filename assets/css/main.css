@@ -1197,7 +1197,7 @@ footer{
 	right:5px;
 	width:25px;
 	height:25px;
-	background-image: url('/assets/img/close.png');
+	background-image: url('../img/close.png');
 	background-size:cover;
 	cursor:pointer;
 }
