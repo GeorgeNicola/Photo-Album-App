@@ -1,3 +1,4 @@
+
 var _ = function (selector) {
     return document.querySelector(selector);
 }; // querySelectorAll
